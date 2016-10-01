@@ -1,0 +1,43 @@
+﻿#Nivel 2
+# Top		Left		Brick			Pill
+10;			10;	Antique
+10;			58;		Magenta
+10;			106;	Brown
+10;			154;	Blue
+10;			202;	Gray
+10;			250;	Antique
+10;			298;	White
+10;			346;	Orange
+10;			394;	Red
+10;			442;	Magenta
+10;			490;	Brown
+10;			538;	Blue
+10;			586;	Gray
+
+36;			10;	Magenta
+36;			58;		Magenta
+36;			106;	Blue
+36;			154;	Antique
+36;			202;	Orange
+36;			250;	Magenta
+36;			298;	Blue
+36;			346;	Antique
+36;			394;	Orange
+36;			442;	Magenta
+36;			490;	Blue
+36;			538;	Antique
+36;			586;	Orange
+
+62;			10;	Antique
+62;			58;		Magenta
+62;			106;	Gray
+62;			154;	Orange
+62;			202;	Brown
+62;			250;	Antique
+62;			298;	Red
+62;			346;	Blue
+62;			394;	White
+62;			442;	Magenta
+62;			490;	Gray
+62;			538;	Orange
+62;			586;	Brown
