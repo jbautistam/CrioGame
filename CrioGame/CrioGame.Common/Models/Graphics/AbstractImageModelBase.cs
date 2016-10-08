@@ -32,5 +32,10 @@ namespace Bau.Libraries.CrioGame.Common.Models.Graphics
 		///		Rectángulos para dibujar al mismo tiempo a partir de una textura (por ejemplo, en los parallax)
 		/// </summary>
 		public Rectangle[] RectangleDraws { get; set; }
+
+		/// <summary>
+		///		Indica si se debe dibujar a toda pantalla
+		/// </summary>
+		public bool FullScreen { get; set; }
 	}
 }

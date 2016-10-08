@@ -13,14 +13,19 @@ namespace Bau.Libraries.CrioGame.Common.Interfaces.GameEngine
 		void AddContent(string strKey, Models.Contents.AbstractContentBase objContent);
 
 		/// <summary>
-		///		Añade una imagen al contenido
+		///		Añade una imagen
 		/// </summary>
 		void AddImage(string strKey, string strContentKey);
 
 		/// <summary>
-		///		Añade una animación
+		///		Añade una fuente
 		/// </summary>
 		void AddFont(string strKey, string strContentKey);
+
+		/// <summary>
+		///		Añade una fuente
+		/// </summary>
+		void AddFont(string strKey, Models.Contents.Graphics.FontContent objFont);
 
 		/// <summary>
 		///		Añade un sonido

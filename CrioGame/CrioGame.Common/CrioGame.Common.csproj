@@ -2,6 +2,7 @@
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{41FCD30A-5AC2-42B9-9E2D-E92EA97940B5}</ProjectGuid>
@@ -9,8 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bau.Libraries.CrioGame.Common</RootNamespace>
     <AssemblyName>CrioGame.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile44</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,63 +34,57 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
+    <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Enums\Enumerates.cs" />
+    <Compile Include="ICrioController.cs" />
+    <Compile Include="Interfaces\GameEngine\IGameContentDictionary.cs" />
+    <Compile Include="Interfaces\GameEngine\IGameContext.cs" />
+    <Compile Include="Interfaces\GameEngine\IGameEventsController.cs" />
+    <Compile Include="Interfaces\GameEngine\IGameLoopController.cs" />
+    <Compile Include="Interfaces\GameEngine\IScene.cs" />
     <Compile Include="Interfaces\GameEngine\ISceneController.cs" />
     <Compile Include="Interfaces\GameEngine\IView.cs" />
+    <Compile Include="Interfaces\GraphicsEngine\IContentManager.cs" />
+    <Compile Include="Interfaces\GraphicsEngine\IInputController.cs" />
+    <Compile Include="Interfaces\GraphicsEngine\IScreenController.cs" />
+    <Compile Include="Interfaces\GraphicsEngine\ISoundController.cs" />
+    <Compile Include="Interfaces\GraphicsEngine\ISpriteBatch.cs" />
+    <Compile Include="Interfaces\IGameEngineManager.cs" />
+    <Compile Include="Interfaces\IGameParameters.cs" />
+    <Compile Include="Interfaces\IGraphicsEngineManager.cs" />
+    <Compile Include="Interfaces\Parameters\IGameConfiguration.cs" />
+    <Compile Include="Models\AbstractModelBase.cs" />
     <Compile Include="Models\Collections\DictionaryContainer.cs" />
     <Compile Include="Models\Collections\ListKey.cs" />
     <Compile Include="Models\Collections\ListKeyItem.cs" />
     <Compile Include="Models\Collections\ObjectPool.cs" />
-    <Compile Include="Models\Contents\Graphics\FontContent.cs" />
-    <Compile Include="Models\Contents\Sounds\SoundContent.cs" />
-    <Compile Include="Enums\Enumerates.cs" />
-    <Compile Include="ICrioController.cs" />
-    <Compile Include="Interfaces\GameEngine\IGameContentDictionary.cs" />
-    <Compile Include="Interfaces\GameEngine\IGameEventsController.cs" />
-    <Compile Include="Interfaces\GraphicsEngine\ISoundController.cs" />
-    <Compile Include="Interfaces\IGameEngineManager.cs" />
-    <Compile Include="Interfaces\IGameParameters.cs" />
-    <Compile Include="Interfaces\IGraphicsEngineManager.cs" />
-    <Compile Include="Interfaces\GraphicsEngine\IContentManager.cs" />
-    <Compile Include="Interfaces\GameEngine\IGameLoopController.cs" />
-    <Compile Include="Interfaces\GraphicsEngine\IScreenController.cs" />
-    <Compile Include="Interfaces\GraphicsEngine\ISpriteBatch.cs" />
     <Compile Include="Models\Contents\AbstractContentBase.cs" />
+    <Compile Include="Models\Contents\Graphics\FontContent.cs" />
     <Compile Include="Models\Contents\Graphics\ImageContent2D.cs" />
-    <Compile Include="Interfaces\GameEngine\IGameContext.cs" />
-    <Compile Include="Interfaces\GraphicsEngine\IInputController.cs" />
-    <Compile Include="Interfaces\Parameters\IGameConfiguration.cs" />
+    <Compile Include="Models\Contents\Sounds\SoundContent.cs" />
     <Compile Include="Models\Graphics\AbstractDrawableModelBase.cs" />
-    <Compile Include="Models\AbstractModelBase.cs" />
     <Compile Include="Models\Graphics\AbstractImageModelBase.cs" />
     <Compile Include="Models\Graphics\AbstractTextModel.cs" />
     <Compile Include="Models\Messages\AbstractMessageModel.cs" />
     <Compile Include="Models\ModelsCollection.cs" />
-    <Compile Include="Interfaces\GameEngine\IScene.cs" />
-    <Compile Include="Models\Resources\ResourceModel.cs" />
     <Compile Include="Models\Resources\ResourceAnimationModel.cs" />
+    <Compile Include="Models\Resources\ResourceModel.cs" />
     <Compile Include="Models\Resources\ResourceSheetModel.cs" />
     <Compile Include="Models\Structs\CameraView.cs" />
+    <Compile Include="Models\Structs\ColorEngine.cs" />
     <Compile Include="Models\Structs\GameObjectDimensions.cs" />
     <Compile Include="Models\Structs\Polar2D.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\Structs\ColorEngine.cs" />
     <Compile Include="Models\Structs\Rectangle.cs" />
     <Compile Include="Models\Structs\Size2D.cs" />
     <Compile Include="Models\Structs\Vector2D.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AbstractRepository.cs" />
     <Compile Include="Repository\ResourcesRepository.cs" />
     <Compile Include="Tools\MathHelper.cs" />
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

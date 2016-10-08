@@ -63,13 +63,13 @@
     <Compile Include="Sounds\SoundController.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\CrioGame.Common\CrioGame.Common.csproj">
       <Project>{41fcd30a-5ac2-42b9-9e2d-e92ea97940b5}</Project>
       <Name>CrioGame.Common</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

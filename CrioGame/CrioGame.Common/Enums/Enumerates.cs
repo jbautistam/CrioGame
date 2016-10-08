@@ -5,18 +5,19 @@ namespace Bau.Libraries.CrioGame.Common.Enums
 	/// <summary>
 	///		Botones del ratón
 	/// </summary>
+	[Flags]
 	public enum MouseButtons
 		{
 			/// <summary>Botón derecho</summary>
-			Right,
+			Right = 1,
 			/// <summary>Botón izquierdo</summary>
-			Left,
+			Left = 2,
 			/// <summary>Botón medio</summary>
-			Middle,
+			Middle = 4,
 			/// <summary>Primer botón adicional</summary>
-			X1,
+			X1 = 8,
 			/// <summary>Segundo botón adicional</summary>
-			X2
+			X2 = 16
 		}
 
 	/// <summary>

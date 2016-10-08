@@ -89,6 +89,6 @@ namespace Bau.Libraries.CrioGame.MonogameImpl
 		/// <summary>
 		///		Indica que se ha iniciado el motor gráfico y es seguro realizar llamadas
 		/// </summary>
-		public bool IsStarted { get; set; }
+		public bool IsStarted { get; internal set; }
 	}
 }

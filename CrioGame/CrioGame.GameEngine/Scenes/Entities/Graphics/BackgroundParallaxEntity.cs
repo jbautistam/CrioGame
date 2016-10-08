@@ -26,11 +26,11 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		{ // Asigna el ancho y alto
 				Width = (int) View.ViewPortScreen.Width;
 				Height = (int) View.ViewPortScreen.Height;
-			// If we divide the screen with the texture width then we can determine the number of tiles need.
-			// We add 1 to it so that we won’t have a gap in the tiling
+			// Si dividimos la pantalla por el ancho de la textura, sabemos el número de rectángulos que necesitamos
+			// Añadimos 1 de forma que no exista ningún gap entre los diferentes rectángulos
 				RectangleDraws = new Rectangle[((int) View.ViewPortScreen.Width) / Width + 1];
 			// Asigna las posiciones iniciales del fondo
-			//! Necesitamos que los títulos se ajusten lado a lado para crear el efecto
+			//! Necesitamos que los rectángulos se ajusten lado a lado para crear el efecto
 				for (int intIndex = 0; intIndex < RectangleDraws.Length; intIndex++)
 					RectangleDraws[intIndex] = new Rectangle(intIndex * Width, Y, Width, Height);
 		}
@@ -96,6 +96,13 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		/// </summary>
 		public override void Draw(IGameContext objContext)
 		{ objContext.GameController.MainManager.GraphicsEngine.SpriteBatch.Draw(this);
+		}
+
+		/// <summary>
+		///		Dibuja el elemento
+		/// </summary>
+		public override void Draw(IGameContext objContext, Rectangle rctView)
+		{ objContext.GameController.MainManager.GraphicsEngine.SpriteBatch.Draw(this, rctView);
 		}
 
 		/// <summary>

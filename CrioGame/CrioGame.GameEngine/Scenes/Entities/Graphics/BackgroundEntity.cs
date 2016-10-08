@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
+using Bau.Libraries.CrioGame.Common.Models.Structs;
 
 namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 {
@@ -20,6 +21,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		public override void Initialize(IGameContext objContext)
 		{	Width = (int) View.ViewPortScreen.Width;
 			Height = (int) View.ViewPortScreen.Height;
+			FullScreen = true;
 		}
 
 		/// <summary>
@@ -33,7 +35,14 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		///		Dibuja el elemento
 		/// </summary>
 		public override void Draw(IGameContext objContext)
-		{ objContext.GameController.MainManager.GraphicsEngine.SpriteBatch.Draw(this);
+		{ 
+		}
+
+		/// <summary>
+		///		Dibuja el elemento
+		/// </summary>
+		public override void Draw(IGameContext objContext, Rectangle rctView)
+		{ objContext.GameController.MainManager.GraphicsEngine.SpriteBatch.Draw(this, rctView);
 		}
 
 		/// <summary>

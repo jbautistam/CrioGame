@@ -37,7 +37,14 @@ namespace Bau.Libraries.CrioGame.GameEngine.Engine
 		///		Añade una fuente
 		/// </summary>
 		public void AddFont(string strKey, string strContentKey)
-		{ Items.Add(strKey, new FontContent(strKey, strContentKey));
+		{ AddFont(strKey, new FontContent(strKey, strContentKey));
+		}
+
+		/// <summary>
+		///		Añade una fuente
+		/// </summary>
+		public void AddFont(string strKey, FontContent objFont)
+		{	Items.Add(strKey, objFont);
 		}
 
 		/// <summary>
