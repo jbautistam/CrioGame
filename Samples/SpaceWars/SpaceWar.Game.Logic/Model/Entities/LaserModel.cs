@@ -15,8 +15,8 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 			private const int cnstIntRateOfFire = 200;
 
 		public LaserModel(IScene objScene, Configuration.GroupGameObjects intFlagsSource, Configuration.GroupGameObjects intFlagsTarget, 
-											GameObjectDimensions objDimensions, TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+											GameObjectDimensions objDimensions) 
+							: base(objScene, objDimensions)
 		{ if (intFlagsSource == Configuration.GroupGameObjects.Player)
 				{ Velocity = new Vector2D(0, -3);
 					SheetKey = "LaserPlayer";
@@ -32,7 +32,7 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 		///		Inicializa el objeto
 		/// </summary>
 		public override void InitializeActor(IGameContext objContext)
-		{ AddAnimation("SpaceWar", SheetKey, "Default", "SpaceWarImage", 0, 0);
+		{ AddAnimation("SpaceWar", SheetKey, "Default", 0, 0);
 		}
 
 		/// <summary>

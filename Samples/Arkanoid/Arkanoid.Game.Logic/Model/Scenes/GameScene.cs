@@ -40,21 +40,22 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Scenes
 				// Calcula las coordenadas (después de cambiar la cámara) y las entidades principales
 					objPosition = new Vector2D(ViewDefault.ViewPortScreen.Width / 2, ViewDefault.ViewPortScreen.Height - 25);
 					objBall = new BallModel(this, new GameObjectDimensions(objPosition.X, ViewDefault.ViewPortScreen.Height / 2), 
-																	new Vector2D(0, 5), TimeSpanBall);
+																	new Vector2D(0, 5));
 					objPaddle = new PaddleModel(this, new GameObjectDimensions(objPosition.X, objPosition.Y));
 				// Añade un fondo fijo
 					Map.AddGameEntity(ViewDefault, Layer.Background.ToString(), new BackgroundEntity(ViewDefault, "UserInterfaceBackground", 0));
 				// Añade los ladrillos
 					intBricks = ShowBricks(ViewDefault, objContext, Score.Level);
 				// Añade la pelota
-					Map.AddGameEntity(ViewDefault, LayerGame, objBall);
+					Map.AddGameEntity(ViewDefault, LayerGame, objBall, TimeSpanBall);
 				// Añade el paddle
 					Map.AddGameEntity(ViewDefault, LayerGame, objPaddle);
 				// Añade los textos
 					Map.AddGameEntity(ViewUserInterface, Layer.UserInterface.ToString(),
 														new GameUserInterfaceModel(this, ViewUserInterface, ViewDefault, 
 																											 Score, objPaddle, objBall, 
-																											 intBricks, TimeSpanUserInterface));
+																											 intBricks), 
+														TimeSpanUserInterface);
 		}
 
 		/// <summary>
@@ -64,7 +65,7 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Scenes
 		{ System.Collections.Generic.List<BrickModel> objColBricks;
 
 				// Carga los ladrillos
-					objColBricks = new Repository.LevelsRepository().LoadBricks(this, objContext, intLevel, TimeSpanBall);
+					objColBricks = new Repository.LevelsRepository().LoadBricks(this, objContext, intLevel);
 				// Añade los ladrillos a la vista
 					foreach (BrickModel objBrick in objColBricks)
 						Map.AddGameEntity(objView, LayerGame, objBrick);

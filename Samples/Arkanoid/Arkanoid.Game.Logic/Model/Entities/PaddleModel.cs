@@ -23,7 +23,7 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 			private int intSpeed = 8;
 			private TimeSpan tsFireSpawnTime, tsPreviousFireTime;
 
-		public PaddleModel(IScene objScene, GameObjectDimensions objDimensions) : base(objScene, TimeSpan.Zero, objDimensions)
+		public PaddleModel(IScene objScene, GameObjectDimensions objDimensions) : base(objScene, objDimensions)
 		{ StartPosition = new Vector2D(objDimensions.Position.X, objDimensions.Position.Y);
 			CollisionEvaluator = new CollisionTargets(this, 
 																								(int) Configuration.GroupCollisionObjects.Player,
@@ -48,11 +48,11 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 				tsFireSpawnTime = Configuration.TimeSpanPlayerLaserFire;
 				tsPreviousFireTime = TimeSpan.Zero;
 			// Inicializa los sprites
-				AddAnimation("Paddle", "Paddle", PaddleType.Normal.ToString(), "PaddleImage", 0, 0);
-				AddAnimation("Paddle", "Paddle", PaddleType.Large.ToString(), "PaddleImage", 0, 0, false);
-				AddAnimation("Paddle", "Paddle", PaddleType.Small.ToString(), "PaddleImage", 0, 0, false);
-				AddAnimation("Paddle", "Paddle", PaddleType.Fire.ToString(), "PaddleImage", 0, 0, false);
-				AddAnimation("Paddle", "Paddle", PaddleType.Died.ToString(), "PaddleImage", 0, 0, false);
+				AddAnimation("Paddle", "Paddle", PaddleType.Normal.ToString(), 0, 0);
+				AddAnimation("Paddle", "Paddle", PaddleType.Large.ToString(), 0, 0, false);
+				AddAnimation("Paddle", "Paddle", PaddleType.Small.ToString(), 0, 0, false);
+				AddAnimation("Paddle", "Paddle", PaddleType.Fire.ToString(), 0, 0, false);
+				AddAnimation("Paddle", "Paddle", PaddleType.Died.ToString(), 0, 0, false);
 		}
 
 		/// <summary>
@@ -95,7 +95,8 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 																						 new GameObjectDimensions(objContext.MathHelper.Clamp(fltX, 0, Scene.ViewDefault.ViewPortScreen.Width),
 																																			objContext.MathHelper.Clamp(Dimensions.Position.Y + Dimensions.ScaledDimensions.Height / 2, 
 																																																	0, Scene.ViewDefault.ViewPortScreen.Height)),
-																						 new Vector2D(0, -10), "Laser", Configuration.TimeSpanPlayerLaserUpdate));
+																						 new Vector2D(0, -10), "Laser"), 
+															Configuration.TimeSpanPlayerLaserUpdate);
 		}
 
 		/// <summary>

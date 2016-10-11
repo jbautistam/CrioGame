@@ -11,7 +11,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 	public class BackgroundEntity : SpriteModel
 	{
 		public BackgroundEntity(IView objView, string strKey, int intZOrder = 0, int intX = 0, int intY = 0) 
-								: base(null, strKey, TimeSpan.FromDays(1), intX, intY)
+								: base(null, strKey, new GameObjectDimensions(intX, intY, 0, 0, 1, 0, null, intZOrder))
 		{ View = objView;
 		}
 
@@ -19,8 +19,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		///		Inicializa el fondo
 		/// </summary>
 		public override void Initialize(IGameContext objContext)
-		{	Width = (int) View.ViewPortScreen.Width;
-			Height = (int) View.ViewPortScreen.Height;
+		{	Dimensions.Resize(View.ViewPortScreen.Width, View.ViewPortScreen.Height);
 			FullScreen = true;
 		}
 
@@ -29,13 +28,6 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		/// </summary>
 		public override void Update(IGameContext objContext)
 		{ // ... no hace nada: es un fondo
-		}
-
-		/// <summary>
-		///		Dibuja el elemento
-		/// </summary>
-		public override void Draw(IGameContext objContext)
-		{ 
 		}
 
 		/// <summary>

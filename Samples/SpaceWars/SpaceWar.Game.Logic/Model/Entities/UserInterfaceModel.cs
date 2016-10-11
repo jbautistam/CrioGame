@@ -12,8 +12,8 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 	/// </summary>
 	public class UserInterfaceModel : AbstractActorModel
 	{
-		public UserInterfaceModel(IScene objScene, ScoresModel objScores, TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, new GameObjectDimensions(0, 0))
+		public UserInterfaceModel(IScene objScene, ScoresModel objScores) 
+							: base(objScene, new GameObjectDimensions(0, 0))
 		{ Scores = objScores;
 		}
 

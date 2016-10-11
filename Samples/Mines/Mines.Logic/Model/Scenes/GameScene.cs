@@ -20,18 +20,19 @@ namespace Bau.Libraries.Mines.Logic.Model.Scenes
 				Map.AddGameEntity(ViewDefault, Layer.Background.ToString(), new BackgroundEntity(ViewDefault, "MainBackground", 0));
 			// Añade el fondo parallax
 				Map.AddGameEntity(ViewDefault, Layer.Background.ToString(), 
-													new BackgroundParallaxEntity(ViewDefault, "Parallax1", Configuration.TimeSpanParallax,
-																												-2, 0, 0, 1));
+													new BackgroundParallaxEntity(ViewDefault, "Parallax1", -2, 0, 0, 1), 
+													Configuration.TimeSpanParallax);
 				Map.AddGameEntity(ViewDefault, Layer.Background.ToString(), 
-													new BackgroundParallaxEntity(ViewDefault, "Parallax2", Configuration.TimeSpanParallax,
-																												-4, 0, 0, 2));
+													new BackgroundParallaxEntity(ViewDefault, "Parallax2", -4, 0, 0, 2), 
+													Configuration.TimeSpanParallax);
 			// Añade los textos
 				Map.AddGameEntity(ViewDefault, Layer.UserInterface.ToString(), 
-													new UserInterfaceModel(this, 0, 3, Configuration.TimeSpanUserInterface));
+													new UserInterfaceModel(this, 0, 3), 
+													Configuration.TimeSpanUserInterface);
 			// Añade las entidades
 				Map.AddGameEntity(ViewDefault, LayerGame, 
 													new PlayerModel(this, new GameObjectDimensions(0, ViewDefault.ViewPortScreen.Height / 2)));
-				Map.AddControlEntity(new EnemySpawner(this, Configuration.TimeSpawnMine));
+				Map.AddControlEntity(new EnemySpawner(this), Configuration.TimeSpawnMine);
 		}
 
 		/// <summary>

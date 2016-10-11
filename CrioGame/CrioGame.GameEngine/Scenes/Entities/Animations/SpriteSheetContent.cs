@@ -9,22 +9,22 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Animations
 	/// </summary>
 	public class SpriteSheetContent : Common.Models.Contents.AbstractContentBase
 	{ 
-		public SpriteSheetContent(string strKey, string strImageKey) : base(strKey, null) 
-		{ ImageKey = strImageKey;
+		public SpriteSheetContent(string strKey, string strImageKey) : base(strKey, strImageKey) 
+		{ 
 		}
 
 		/// <summary>
 		///		Crea una hoja
 		/// </summary>
 		public SpriteSheetFrames CreateSheet(string strFramesKey, Rectangle[] arrRctRectangles)
-		{ return SheetFrames.Add(strFramesKey, new SpriteSheetFrames(strFramesKey, ImageKey, arrRctRectangles));
+		{ return SheetFrames.Add(strFramesKey, new SpriteSheetFrames(strFramesKey, ContentKey, arrRctRectangles));
 		}
 
 		/// <summary>
 		///		Calcula los rectángulos de los frames iniciales
 		/// </summary>
 		public SpriteSheetFrames CreateSheet(string strFramesKey, int intRows, int intColumns, int intFrameWidth, int intFrameHeight)
-		{ SpriteSheetFrames objSheet = SheetFrames.Add(strFramesKey, new SpriteSheetFrames(strFramesKey, ImageKey, intRows * intColumns));
+		{ SpriteSheetFrames objSheet = SheetFrames.Add(strFramesKey, new SpriteSheetFrames(strFramesKey, ContentKey, intRows * intColumns));
 			int intTop = 0;
 
 				// Asigna los rectángulos
@@ -51,11 +51,6 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Animations
 		public SpriteSheetFrames SearchFrames(string strAnimationKey)
 		{ return SheetFrames.Search(strAnimationKey);
 		}
-
-		/// <summary>
-		///		Clave de la imagen de la que se obtiene la animación
-		/// </summary>
-		public string ImageKey { get; }
 
 		/// <summary>
 		///		Clave de la animación predeterminada

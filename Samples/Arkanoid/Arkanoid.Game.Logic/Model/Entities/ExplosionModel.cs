@@ -10,11 +10,9 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 	///		Modelo con los datos de una explosión
 	/// </summary>
 	public class ExplosionModel : AbstractActorModel
-	{ // Variables privadas
-			private int intUpdates = 0;
-
-		public ExplosionModel(IScene objScene, GameObjectDimensions objDimensions, Vector2D vctVelocity, TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+	{
+		public ExplosionModel(IScene objScene, GameObjectDimensions objDimensions, Vector2D vctVelocity) 
+							: base(objScene, objDimensions)
 		{ Movement = new Movements.MovementVelocity(this, vctVelocity);
 		}
 
@@ -22,14 +20,14 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 		///		Inicializa el objeto
 		/// </summary>
 		public override void InitializeActor(IGameContext objContext)
-		{ AddAnimation("Paddle", "Explosion", "Default", "PaddleImage", 0, 0);
+		{ AddAnimation("Paddle", "Explosion", "Default", 0, 0);
 		}
 
 		/// <summary>
 		///		Modifica el estado del objeto
 		/// </summary>
 		public override void UpdateActor(IGameContext objContext)
-		{ if (intUpdates++ >= 24 || Movement.IsOutView)
+		{ if (((Sprites[0] as SpriteAnimableModel)?.Loops ?? 0) > 0 || Movement.IsOutView)
 				Scene.Map.RemoveGameEntity(this);
 			else
 				Movement.Update(objContext, Scene.ViewDefault);

@@ -15,7 +15,7 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 	{ // Variables privadas
 			private TimeSpan tsFireSpawnTime, tsPreviousFireTime;
 
-		public PlayerModel(IScene objScene, GameObjectDimensions objDimensions) : base(objScene, TimeSpan.Zero, objDimensions)
+		public PlayerModel(IScene objScene, GameObjectDimensions objDimensions) : base(objScene, objDimensions)
 		{ Velocity = new Vector2D(3, 0);
 			CollisionEvaluator = new CollisionTargets(this, (int) Configuration.GroupGameObjects.Player, 
 																								(int) Configuration.GroupGameObjects.Enemy);
@@ -29,7 +29,8 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 				tsFireSpawnTime = Configuration.TimeSpanPlayerLaserFire;
 				tsPreviousFireTime = TimeSpan.Zero;
 			// Añade la animación
-				AddSprite(objContext.GameController.ContentController.GetContent("SpaceWar") as SpriteSheetContent, "ShipPlayer1", 0, 0, 0, ColorEngine.Yellow, 1);
+				AddSprite(objContext.GameController.ContentController.GetContent("SpaceWar") as SpriteSheetContent, 
+									"ShipPlayer1", 0, new GameObjectDimensions(0, 0, ColorEngine.Yellow, 1));
 		}
 
 		/// <summary>
@@ -57,8 +58,8 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 							// Crea el láser
 								Scene.Map.AddGameEntity(Scene.ViewDefault, Configuration.LayerGame, 
 																			  new LaserModel(Scene, Configuration.GroupGameObjects.Player, Configuration.GroupGameObjects.Enemy,
-																											 new GameObjectDimensions(Dimensions.Position.X, Dimensions.Position.Y),
-																											 Configuration.TimeSpanPlayerLaserUpdate));
+																											 new GameObjectDimensions(Dimensions.Position.X, Dimensions.Position.Y)),
+																				Configuration.TimeSpanPlayerLaserUpdate);
 						}
 				// Controla las colisiones
 					if (CollisionEvaluator.Targets.Count > 0)

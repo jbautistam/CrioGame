@@ -20,16 +20,20 @@ namespace Bau.Libraries.CrioGame.Common.Interfaces.GameEngine
 		void RemoveControlEntity(AbstractModelBase objEntity);
 
 		/// <summary>
-		///		Añade una entidad de juego
+		///		Añade una entidad al mapa sobre la vista predeterminada
 		/// </summary>
-		void AddGameEntity(System.Collections.Generic.List<Models.Structs.ViewLayerModel> objColViewLayer, AbstractModelBase objEntity, 
-											 TimeSpan? tsBetweenUpdate = null);
+		void AddGameEntity(string strLayerKey, AbstractModelBase objEntity, TimeSpan? tsBetweenUpdate = null);
 
 		/// <summary>
 		///		Añade una entidad al mapa
 		/// </summary>
-		void AddGameEntity(IView objView, string strLayerKey, AbstractModelBase objEntity,
-											 TimeSpan? tsBetweenUpdate = null);
+		void AddGameEntity(IView objView, string strLayerKey, AbstractModelBase objEntity, TimeSpan? tsBetweenUpdate = null);
+
+		/// <summary>
+		///		Añade una entidad de juego
+		/// </summary>
+		void AddGameEntity(System.Collections.Generic.List<Models.Structs.ViewLayerModel> objColViewLayer, 
+											 AbstractModelBase objEntity, TimeSpan? tsBetweenUpdate = null);
 
 		/// <summary>
 		///		Elimina una entidad de control

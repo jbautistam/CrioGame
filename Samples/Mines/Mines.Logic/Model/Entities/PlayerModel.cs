@@ -15,7 +15,7 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 			private int intSpeed = 8;
 			private TimeSpan tsFireSpawnTime, tsPreviousFireTime;
 
-		public PlayerModel(IScene objScene, GameObjectDimensions objDimensions) : base(objScene, TimeSpan.Zero, objDimensions)
+		public PlayerModel(IScene objScene, GameObjectDimensions objDimensions) : base(objScene, objDimensions)
 		{ CollisionEvaluator = new CollisionTargets(this, 
 																								(int) Configuration.GroupGameObjects.Player, 
 																								(int) Configuration.GroupGameObjects.Enemy);
@@ -29,7 +29,7 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 				tsFireSpawnTime = Configuration.TimeSpanPlayerLaserFire;
 				tsPreviousFireTime = TimeSpan.Zero;
 			// Añade la animación
-				AddAnimation("Player", "Default", "Default", "PlayerImage", 0, 0);
+				AddAnimation("Player", "Default", "Default", 0, 0);
 			// Coloca la imagen
 				Dimensions.Position = new Rectangle(0, Scene.ViewDefault.ViewPortScreen.Height / 2, 
 																						Dimensions.Position.Width, Dimensions.Position.Height);
@@ -69,7 +69,8 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 																																																						Scene.ViewDefault.ViewPortScreen.Width),
 																																								 objContext.MathHelper.Clamp(Dimensions.Position.Y + Dimensions.ScaledDimensions.Height / 2, 0, 
 																																																						 Scene.ViewDefault.ViewPortScreen.Height)),
-																												new Vector2D(30, 0), "Laser", Configuration.TimeSpanPlayerLaserUpdate));
+																												new Vector2D(30, 0), "Laser"), 
+																				Configuration.TimeSpanPlayerLaserUpdate);
 						}
 		}
 	}

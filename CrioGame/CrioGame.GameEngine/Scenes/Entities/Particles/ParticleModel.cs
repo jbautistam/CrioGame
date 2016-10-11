@@ -10,8 +10,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Particles
 	/// </summary>
 	public class ParticleModel : Common.Models.AbstractModelBase
 	{
-		public ParticleModel(TimeSpan tsBetweenUpdate, int intLifeTime,
-												 Components.Physics.Movements.AbstractMovementComponent objMovement) : base(tsBetweenUpdate)
+		public ParticleModel(int intLifeTime, Components.Physics.Movements.AbstractMovementComponent objMovement)
 		{ Dimensions = new GameObjectDimensions(0, 0);
 			LifeTime = intLifeTime;
 			Movement = objMovement;
@@ -21,7 +20,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Particles
 		///		Inicializa la partícula
 		/// </summary>
 		public override void Initialize(IGameContext objContext)
-		{ TimeLastUpdate = TimeSpan.Zero;
+		{ 
 		}
 
 		/// <summary>

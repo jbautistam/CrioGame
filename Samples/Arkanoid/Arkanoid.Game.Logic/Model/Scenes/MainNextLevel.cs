@@ -30,9 +30,9 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Scenes
 												new BackgroundEntity(ViewDefault, "MenuBackground", 0));
 			Map.AddGameEntity(ViewDefault, Layer.UserInterface.ToString(),
 												new TextModel(null, "Font", "Enhorabuena, pulse una tecla para pasar de nivel",
-																			(int) (ViewDefault.ViewPortScreen.Width / 2 - 200),
-																			(int) (ViewDefault.ViewPortScreen.Height / 2),
-																			ColorEngine.White));
+																			new GameObjectDimensions(ViewDefault.ViewPortScreen.Width / 2 - 200,
+																															 ViewDefault.ViewPortScreen.Height / 2,
+																															 ColorEngine.White)));
 		}
 
 		/// <summary>

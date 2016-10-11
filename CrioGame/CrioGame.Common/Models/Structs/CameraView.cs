@@ -15,8 +15,7 @@ namespace Bau.Libraries.CrioGame.Common.Models.Structs
 
 		/// <summary>
 		///		Rectángulo de la pantalla: lo trata como porcentaje, es decir, el porcentaje donde se
-		///	coloca la vista en la pantalla (así evitamos manipularlo cuando se redimensiona la
-		///	ventana)
+		///	coloca la vista en la pantalla (así evitamos manipularlo cuando se redimensiona la ventana)
 		/// </summary>
 		public Rectangle ViewPortPercentScreen { get; set; }
 

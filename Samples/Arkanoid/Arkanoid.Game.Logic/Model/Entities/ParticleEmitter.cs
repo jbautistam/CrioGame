@@ -13,8 +13,8 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 	/// </summary>
 	internal class ParticleEmitter : AbstractParticleEmitter
 	{
-		public ParticleEmitter(IScene objScene, TimeSpan tsLife, TimeSpan tsBetweenUpdate, GameObjectDimensions objDimensions) 
-								: base(objScene, tsLife, tsBetweenUpdate, objDimensions)
+		public ParticleEmitter(IScene objScene, TimeSpan tsLife, GameObjectDimensions objDimensions) 
+								: base(objScene, tsLife, objDimensions)
 		{
 		}
 
@@ -36,10 +36,8 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 		///		Crea una partícula
 		/// </summary>
 		protected override void CreateParticle(IGameContext objContext)
-		{	Particles.Add(new ParticleModel(TimeBetweenUpdate, 
-																			objContext.MathHelper.Random(MinimumTimeLife, MaximumTimeLife),
-																			new MovementVelocityComponent(TimeBetweenUpdate, 
-																																		new Vector2D(objContext.MathHelper.Random(-5, 5), 
+		{	Particles.Add(new ParticleModel(objContext.MathHelper.Random(MinimumTimeLife, MaximumTimeLife),
+																			new MovementVelocityComponent(new Vector2D(objContext.MathHelper.Random(-5, 5), 
 																																								 objContext.MathHelper.Random(-5, 5)))));
 		}
 	}

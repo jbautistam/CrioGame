@@ -15,9 +15,8 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 			private const int cnstIntRateOfFire = 200;
 
 		public LaserModel(IScene objScene, int intFlagsSource, int intFlagsTarget, 
-											GameObjectDimensions objDimensions, Polar2D vctVelocity, 
-											TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+											GameObjectDimensions objDimensions, Polar2D vctVelocity) 
+							: base(objScene, objDimensions)
 		{ Velocity = vctVelocity;
 			CollisionEvaluator = new CollisionTargets(this, intFlagsSource, intFlagsTarget);
 		}
@@ -26,7 +25,7 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 		///		Inicializa el objeto
 		/// </summary>
 		public override void InitializeActor(IGameContext objContext)
-		{ AddAnimation("Rocks", "Laser", "Default", "RocksImage", 0, 0);
+		{ AddAnimation("Rocks", "Laser", "Default", 0, 0);
 		}
 
 		/// <summary>

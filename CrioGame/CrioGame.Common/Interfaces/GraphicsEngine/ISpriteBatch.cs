@@ -21,11 +21,6 @@ namespace Bau.Libraries.CrioGame.Common.Interfaces.GraphicsEngine
 		Size2D GetDimensions(AbstractImageModelBase objImage);
 
 		/// <summary>
-		///		Dibuja una imagen
-		/// </summary>
-		void Draw(AbstractImageModelBase objImage);
-
-		/// <summary>
 		///		Dibuja una imagen utilizando una vista
 		/// </summary>
 		void Draw(AbstractImageModelBase objImage, Rectangle rctView);
@@ -34,11 +29,6 @@ namespace Bau.Libraries.CrioGame.Common.Interfaces.GraphicsEngine
 		///		Dibuja una imagen escalada a partir de parte de una imagen
 		/// </summary>
 		void DrawFull(AbstractImageModelBase objImage, Rectangle rctCamera);
-
-		/// <summary>
-		///		Dibuja un texto
-		/// </summary>
-		void DrawText(AbstractTextModel objText);
 
 		/// <summary>
 		///		Dibuja un texto utilizando una vista

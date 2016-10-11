@@ -18,8 +18,8 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 			private TimeSpan tsPreviousFireTime = TimeSpan.Zero;
 
 		public ShipBossModel(IScene objScene, GameObjectDimensions objDimensions, int intShipType, 
-												 Vector2D vctVelocity, ColorEngine clrColor, TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+												 Vector2D vctVelocity, ColorEngine clrColor) 
+							: base(objScene, objDimensions)
 		{ ShipType = intShipType;
 			Velocity = vctVelocity;
 			Color = clrColor;
@@ -33,8 +33,8 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 		/// </summary>
 		public override void InitializeActor(IGameContext objContext)
 		{ AddSprite(objContext.GameController.ContentController.GetContent("SpaceWar") as SpriteSheetContent,
-								$"ShipEnemy{ShipType}", 0, 0, 0, Color, 1);
-			Sprites[0].Scale = Dimensions.Scale;
+								$"ShipEnemy{ShipType}", 0, new GameObjectDimensions(0, 0, Color, 1));
+			Sprites[0].Dimensions.Scale = Dimensions.Scale;
 		}
 
 		/// <summary>
@@ -59,8 +59,8 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 																												 new GameObjectDimensions(objContext.MathHelper.Clamp(Dimensions.Position.X - Dimensions.ScaledDimensions.Width / 2, 
 																																																							0, Scene.ViewDefault.ViewPortScreen.Width),
 																																									objContext.MathHelper.Clamp(Dimensions.Position.Y + Dimensions.ScaledDimensions.Height / 2, 
-																																																							0, Scene.ViewDefault.ViewPortScreen.Height)),
-																			Configuration.TimeSpanMineLaserUpdate));
+																																																							0, Scene.ViewDefault.ViewPortScreen.Height))),
+																					Configuration.TimeSpanMineLaserUpdate);
 							}
 				}
 		}
@@ -73,8 +73,10 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 				Scene.Map.RemoveGameEntity(this);
 			// Añade una explosión a la capa
 				Scene.Map.AddGameEntity(Scene.ViewDefault, Configuration.LayerGame,
-															  ExplosionModel.Create(Scene, intType, Dimensions.Position.X, Dimensions.Position.Y - 20, 
-																										  new Vector2D(0, 0), Configuration.TimeEnemyExplosion));
+															  ExplosionModel.Create(Scene, intType, 
+																											new GameObjectDimensions(Dimensions.Position.X, Dimensions.Position.Y - 20), 
+																										  new Vector2D(0, 0)), 
+																Configuration.TimeEnemyExplosion);
 			// Activa el sonido
 				objContext.GameController.MainManager.GraphicsEngine.SoundController.Play(Configuration.ExplosionSound);
 			// Manda el mensaje para cambiar la puntuación

@@ -16,9 +16,8 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 		// Variables privadas
 			private TimeSpan tsPreviousFireTime = TimeSpan.Zero;
 
-		public RockModel(IScene objScene, EnemySpawner objSpawner, GameObjectDimensions objDimensions, Polar2D vctVelocity, string strFramesKey,
-										 TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+		public RockModel(IScene objScene, EnemySpawner objSpawner, GameObjectDimensions objDimensions, Polar2D vctVelocity, string strFramesKey) 
+							: base(objScene, objDimensions)
 		{ Spawner = objSpawner;
 			Velocity = vctVelocity;
 			FramesKey = strFramesKey;
@@ -31,9 +30,9 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 		///		Inicializa el objeto
 		/// </summary>
 		public override void InitializeActor(IGameContext objContext)
-		{ SpriteModel objSprite = AddAnimation("Rocks", FramesKey, "Default", "RocksImage", 0, 0);
+		{ SpriteModel objSprite = AddAnimation("Rocks", FramesKey, "Default", 0, 0);
 
-				objSprite.Scale = Dimensions.Scale;
+				objSprite.Dimensions.Scale = Dimensions.Scale;
 		}
 
 		/// <summary>
@@ -52,7 +51,8 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 						// Añade una explosión a la capa
 							Scene.Map.AddGameEntity(Scene.ViewDefault, Configuration.LayerGame,
 																			new ExplosionModel(Scene, new GameObjectDimensions(Dimensions.Position.X, Dimensions.Position.Y), 
-																													Velocity, Configuration.TimeEnemyExplosion));
+																													Velocity), 
+																			Configuration.TimeEnemyExplosion);
 						// Activa el sonido
 							objContext.GameController.MainManager.GraphicsEngine.SoundController.Play(Configuration.ExplosionSound);
 						// Manda el mensaje para cambiar la puntuación

@@ -12,8 +12,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
 	/// </summary>
 	public class ButtonControl : AbstractControl
 	{
-		public ButtonControl(Rectangle rctPosition,TimeSpan tsBetweenUpdate, int intZOrder = 0) 
-								: base(rctPosition, tsBetweenUpdate, intZOrder)
+		public ButtonControl(GameObjectDimensions objDimensions) : base(objDimensions)
 		{ 
 		}
 
@@ -24,25 +23,19 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
 																			 string strContentKey, string strSpriteSheet,
 																			 string strImageNormal, string strImageFocused, 
 																			 string strFontKey, string strText, ColorEngine clrText, ColorEngine clrTextFocused)
-		{ ButtonControl cmdButton = new ButtonControl(new Rectangle(fltX, fltY),
-																									TimeSpan.FromMilliseconds(20));
+		{ ButtonControl cmdButton = new ButtonControl(new GameObjectDimensions(fltX, fltY));
 			SpriteSheetContent objSpriteSheet = objContext.GameController.ContentController.GetContent(strSpriteSheet) as SpriteSheetContent;
 
 				// Asigna las imágenes
-					cmdButton.Background = new SpriteModel(cmdButton, strContentKey, 
-																								 TimeSpan.FromMilliseconds(20), 
-																								 0, 0,
-																								 objSpriteSheet.SearchFrames(strImageNormal).Rectangles[0],
-																								 null, 0);
+					cmdButton.Background = new SpriteModel(cmdButton, strContentKey, new GameObjectDimensions(0, 0),
+																								 objSpriteSheet.SearchFrames(strImageNormal).Rectangles[0]);
 					if (!string.IsNullOrEmpty(strImageFocused))
-						cmdButton.FocusBackground = new SpriteModel(cmdButton, strContentKey, 
-																												TimeSpan.FromMilliseconds(20), 0, 0,
-																												objSpriteSheet.SearchFrames(strImageFocused).Rectangles[0],
-																												null, 0);
+						cmdButton.FocusBackground = new SpriteModel(cmdButton, strContentKey, new GameObjectDimensions(0, 0),
+																												objSpriteSheet.SearchFrames(strImageFocused).Rectangles[0]);
 				// Asigna el texto
 					if (!string.IsNullOrEmpty(strText))
-						{ cmdButton.Text = new TextModel(cmdButton, strFontKey, strText, 20, 10, clrText);
-							cmdButton.TextFocused = new TextModel(cmdButton, strFontKey, strText, 20, 10, clrTextFocused);
+						{ cmdButton.Text = new TextModel(cmdButton, strFontKey, strText, new GameObjectDimensions(20, 10, clrText));
+							cmdButton.TextFocused = new TextModel(cmdButton, strFontKey, strText, new GameObjectDimensions(20, 10, clrTextFocused));
 						}
 				// Devuelve el control
 					return cmdButton;
@@ -52,14 +45,14 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
 		///		Inicializa el control
 		/// </summary>
 		public override void Initialize(IGameContext objContext)
-		{ Position = new Rectangle(Position.X, Position.Y, Background.RectangleSource.Width, Background.RectangleSource.Height);
+		{ Dimensions.Resize(Background.RectangleSource);
 		}
 
 		/// <summary>
 		///		Modifica el control
 		/// </summary>
 		public override void Update(IGameContext objContext)
-		{ bool blnMouseOnButton = Position.HasPoint(objContext.GameController.MainManager.GraphicsEngine.InputManager.CurrentMousePosition);
+		{ bool blnMouseOnButton = Dimensions.HasPoint(objContext.GameController.MainManager.GraphicsEngine.InputManager.CurrentMousePosition);
 
 				// Indica que no se ha pulsado ni tiene el foco ...
 					Clicked = false;
@@ -70,13 +63,6 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
 						Clicked = true;
 					else if (blnMouseOnButton)
 						Focused = true;
-		}
-
-		/// <summary>
-		///		Dibuja el control
-		/// </summary>
-		public override void Draw(IGameContext objContext)
-		{ // ... el dibujo pasa por la siguiente función
 		}
 
 		/// <summary>

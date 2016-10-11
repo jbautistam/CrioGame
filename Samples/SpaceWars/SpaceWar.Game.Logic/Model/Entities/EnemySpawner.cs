@@ -11,7 +11,7 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 	/// </summary>
 	internal class EnemySpawner : AbstractEntitySpawner
 	{
-		public EnemySpawner(IScene objScene, ScoresModel objScore, TimeSpan tsSpawnTime, int intProbability = 75) : base(objScene, tsSpawnTime, intProbability) 
+		public EnemySpawner(IScene objScene, ScoresModel objScore, int intProbability = 75) : base(objScene, intProbability) 
 		{ Scores = objScore;
 		}
 
@@ -32,8 +32,8 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 																  new RockModel(Scene, this, 
 																							  new GameObjectDimensions(objContext.MathHelper.Random((int) Scene.ViewDefault.ViewPortScreen.Width - 50), 0), 
 																							  new Vector2D(0, 5),
-																							  $"Rock{objContext.MathHelper.Random(5) + 1}",
-																							  Configuration.TimeSpanShipUpdate));
+																							  $"Rock{objContext.MathHelper.Random(5) + 1}"),
+																	Configuration.TimeSpanShipUpdate);
 			// Crea naves enemigas adicionales
 				if ((objContext.ActualTime - TimeLastBoss).Seconds > 5)
 					{	// Añade la nave
@@ -42,7 +42,8 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 																											  new GameObjectDimensions(objContext.MathHelper.Random((int) Scene.ViewDefault.ViewPortScreen.Width - 50), 0),
 																											  objContext.MathHelper.Random(4, 9),
 																											  new Vector2D(0, objContext.MathHelper.Random(2, 5)),
-																											  ColorEngine.AntiqueWhite, Configuration.TimeSpanShipUpdate));
+																											  ColorEngine.AntiqueWhite), 
+																		 Configuration.TimeSpanShipUpdate);
 						// Guarda el momento en que se ha añadido la nvae
 							TimeLastBoss = objContext.ActualTime;
 					}

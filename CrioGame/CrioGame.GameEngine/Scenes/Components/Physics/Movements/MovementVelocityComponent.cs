@@ -10,8 +10,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Movements
 	/// </summary>
 	public class MovementVelocityComponent : AbstractMovementComponent
 	{
-		public MovementVelocityComponent(TimeSpan tsBetweenUpdate,  
-																		 Vector2D vctVelocity, float fltAngle = 0) : base(tsBetweenUpdate)
+		public MovementVelocityComponent(Vector2D vctVelocity, float fltAngle = 0)
 		{ Velocity = vctVelocity;
 			Angle = fltAngle;
 		}

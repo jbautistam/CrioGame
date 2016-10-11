@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Configuration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)GameController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Messages\InformationMessage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\BallModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\BrickModel.cs" />

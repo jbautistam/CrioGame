@@ -12,9 +12,10 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Layers
 	/// </summary>
 	internal class MapEntityModel : AbstractModelBase
 	{
-		internal MapEntityModel(List<ViewLayerModel> objColViewLayers, AbstractModelBase objEntity, TimeSpan tsBetweenUpdate) : base(tsBetweenUpdate)
+		internal MapEntityModel(List<ViewLayerModel> objColViewLayers, AbstractModelBase objEntity, TimeSpan tsBetweenUpdate)
 		{ ViewLayers = objColViewLayers;
 			Entity = objEntity;
+			TimeBetweenUpdate = tsBetweenUpdate;
 		}
 
 		/// <summary>
@@ -101,5 +102,15 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Layers
 		///		Indica si está en alguna capa en la que se deben evaluar colisiones
 		/// </summary>
 		public bool IsAtLayerEvaluateCollisions { get; private set; }
+
+		/// <summary>
+		///		Tiempo entre modificaciones (TimeSpan.Zero: se modifica siempre)
+		/// </summary>
+		public TimeSpan TimeBetweenUpdate { get; set; }
+
+		/// <summary>
+		///		Momento de la última modificación
+		/// </summary>
+		public TimeSpan TimeLastUpdate { get; set; }
 	}
 }

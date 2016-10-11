@@ -1,7 +1,6 @@
 ﻿using System;
 
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
-using Bau.Libraries.CrioGame.Common.Models;
 using Bau.Libraries.CrioGame.Common.Models.Structs;
 
 namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
@@ -11,8 +10,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
 	/// </summary>
 	public class ProgressBarControl : AbstractControl
 	{
-		public ProgressBarControl(Rectangle rctPosition,  TimeSpan tsBetweenUpdate, int intZOrder = 0) 
-							: base(rctPosition, tsBetweenUpdate, intZOrder)
+		public ProgressBarControl(GameObjectDimensions objDimensions) : base(objDimensions)
 		{
 		}
 
@@ -31,13 +29,6 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
 		}
 
 		/// <summary>
-		///		Dibuja el control
-		/// </summary>
-		public override void Draw(IGameContext objContext)
-		{ Draw(objContext, Position);
-		}
-
-		/// <summary>
 		///		Dibuja el control en una posición
 		/// </summary>
 		public override void Draw(IGameContext objContext, Rectangle rctCamera)
@@ -45,9 +36,9 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
 
 				// Calcula el porcentaje de la barra
 					Percent = (int) objContext.MathHelper.Clamp(Percent, 0, 100);
-					fltBarWidth = Position.Width * Percent / 100;
+					fltBarWidth = Dimensions.Position.Width * Percent / 100;
 				// Dibuja las barras
-					DrawContent(objContext, Background, 0, 0, Position.Width, rctCamera);
+					DrawContent(objContext, Background, 0, 0, Dimensions.Position.Width, rctCamera);
 					DrawContent(objContext, Bar, Bar.DeltaX, Bar.DeltaY, fltBarWidth, rctCamera);
 		}
 
@@ -58,10 +49,10 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
 														 int intDeltaX, int intDeltaY, float fltWidth, Rectangle rctCamera)
 		{ if (objSprite != null)
 				{ // Coloca el objeto
-						objSprite.X = (int) Position.X + intDeltaX;
-						objSprite.Y = (int) Position.Y + intDeltaY;
-						objSprite.Width = (int) fltWidth - 2 * intDeltaX;
-						objSprite.Height = (int) Position.Height - 2 * intDeltaY;
+						objSprite.Dimensions = new GameObjectDimensions(Dimensions.Position.X + intDeltaX,
+																														Dimensions.Position.Y + intDeltaY,
+																														(int) fltWidth - 2 * intDeltaX,
+																														(int) Dimensions.Position.Height - 2 * intDeltaY);
 					// Dibuja el objeto
 						objContext.GameController.MainManager.GraphicsEngine.SpriteBatch.DrawFull(objSprite, rctCamera);
 				}

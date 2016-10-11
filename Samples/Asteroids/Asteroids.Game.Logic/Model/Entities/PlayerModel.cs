@@ -15,7 +15,7 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 	{ // Variables privadas
 			private TimeSpan tsFireSpawnTime, tsPreviousFireTime;
 
-		public PlayerModel(IScene objScene, GameObjectDimensions objDimensions) : base(objScene, TimeSpan.Zero, objDimensions)
+		public PlayerModel(IScene objScene, GameObjectDimensions objDimensions) : base(objScene, objDimensions)
 		{ CollisionEvaluator = new CollisionTargets(this, (int) Configuration.GroupGameObjects.Player, 
 																								(int) Configuration.GroupGameObjects.Enemy);
 		}
@@ -63,7 +63,7 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 				// Cambia las coordenadas
 					Dimensions.MoveTo(fltNewX, fltNewY);
 				// Cambia el ángulo del sprite
-					Sprites[0].Angle = Dimensions.Angle;
+					Sprites[0].Dimensions.Angle = Dimensions.Angle;
 				// Decrementa la aceleación
 					if (Acceleration.Length > 0.5)
 						Acceleration = new Polar2D(Dimensions.Angle, Acceleration.Length - 0.3f);
@@ -85,8 +85,8 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 																												 (int) Configuration.GroupGameObjects.Player,
 																												 (int) Configuration.GroupGameObjects.Enemy,
 																												 new GameObjectDimensions(vctPosition.X, vctPosition.Y),
-																												 new Polar2D(Dimensions.Angle, 15), 
-																												 Configuration.TimeSpanPlayerLaserUpdate));
+																												 new Polar2D(Dimensions.Angle, 15)), 
+																					Configuration.TimeSpanPlayerLaserUpdate);
 						}
 				// Controla las colisiones
 					if (CollisionEvaluator.Targets.Count > 0)

@@ -35,10 +35,17 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Layers
 		}
 
 		/// <summary>
+		///		Añade una entidad al mapa sobre la vista predeterminada
+		/// </summary>
+		public void AddGameEntity(string strLayerKey, AbstractModelBase objEntity, TimeSpan? tsBetweenUpdate = null)
+		{ AddGameEntity(new List<ViewLayerModel> { new ViewLayerModel(Scene.ViewDefault, strLayerKey) },
+										objEntity, tsBetweenUpdate);
+		}
+
+		/// <summary>
 		///		Añade una entidad al mapa
 		/// </summary>
-		public void AddGameEntity(IView objView, string strLayerKey, AbstractModelBase objEntity,
-															TimeSpan? tsBetweenUpdate = null)
+		public void AddGameEntity(IView objView, string strLayerKey, AbstractModelBase objEntity, TimeSpan? tsBetweenUpdate = null)
 		{ AddGameEntity(new List<ViewLayerModel> { new ViewLayerModel(objView, strLayerKey) },
 										objEntity, tsBetweenUpdate);
 		}
@@ -46,8 +53,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Layers
 		/// <summary>
 		///		Añade una entidad de juego
 		/// </summary>
-		public void AddGameEntity(List<ViewLayerModel> objColViewLayer, AbstractModelBase objEntity, 
-															TimeSpan? tsBetweenUpdate = null)
+		public void AddGameEntity(List<ViewLayerModel> objColViewLayer, AbstractModelBase objEntity, TimeSpan? tsBetweenUpdate = null)
 		{ // Añade la capa si es necesario
 				foreach (ViewLayerModel objViewLayer in objColViewLayer)
 					if (!objViewLayer.LayerKey.Equals(AbstractSceneModel.Layer.Background.ToString(), StringComparison.CurrentCultureIgnoreCase) && 

@@ -15,8 +15,8 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 	/// </summary>
 	public class UserInterfaceModel : AbstractActorModel
 	{
-		public UserInterfaceModel(IScene objScene, ScoresModel objScores, TimeSpan tsBetweenUpdate) 
-								: base(objScene, tsBetweenUpdate, new GameObjectDimensions(0, 0))
+		public UserInterfaceModel(IScene objScene, ScoresModel objScores) 
+								: base(objScene, new GameObjectDimensions(0, 0))
 		{ Scores = objScores;
 		}
 
@@ -27,35 +27,32 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 		{ int intLeftLabel = (int) Scene.ViewDefault.ViewPortScreen.Width - 200;
 
 				// Añade los textos fijos
-					base.AddText("Font", "Puntos", 10, 10);
-					ScoreLabel = base.AddText("Font", $"{Scores.Score:#,##0}", 70, 10);
-					base.AddText("Font", "Energia", intLeftLabel - 400, 10);
-					base.AddText("Font", "Vidas", intLeftLabel, 10);
-					LifesLabel = base.AddText("Font", $"{Scores.Lives}", intLeftLabel + 60, 10);
+					AddText("Font", "Puntos", new GameObjectDimensions(10, 10));
+					ScoreLabel = base.AddText("Font", $"{Scores.Score:#,##0}", new GameObjectDimensions(70, 10));
+					AddText("Font", "Energia", new GameObjectDimensions(intLeftLabel - 400, 10));
+					AddText("Font", "Vidas", new GameObjectDimensions(intLeftLabel, 10));
+					LifesLabel = base.AddText("Font", $"{Scores.Lives}", new GameObjectDimensions(intLeftLabel + 60, 10));
 				// Crea la barra de progreso
-					EnergyProgress = CreateBarProgress(objContext, new Rectangle(intLeftLabel - 335, 5, 200, 24));
+					EnergyProgress = CreateBarProgress(objContext, new GameObjectDimensions(intLeftLabel - 335, 5, 200, 24));
 		}
 
 		/// <summary>
 		///		Crea una barra de progreso
 		/// </summary>
-		private ProgressBarControl CreateBarProgress(IGameContext objContext, Rectangle rctPosition)
-		{ ProgressBarControl objProgress = new ProgressBarControl(rctPosition, TimeSpan.FromMilliseconds(40), 0);
+		private ProgressBarControl CreateBarProgress(IGameContext objContext, GameObjectDimensions objDimensions)
+		{ ProgressBarControl objProgress = new ProgressBarControl(objDimensions);
 			SpriteSheetContent objSpriteSheet = objContext.GameController.ContentController.GetContent("Controls") as SpriteSheetContent;
 
 				// Añade el fondo
-					objProgress.Background = new SpriteModel(null, objSpriteSheet.ImageKey, TimeSpan.Zero, 0, 0,
-																									 objSpriteSheet.SearchFrames("ProgressBarBackground").Rectangles[0],
-																									 null, 0);
-					objProgress.Bar = new SpriteModel(null, objSpriteSheet.ImageKey, TimeSpan.Zero, 1, 1,
-																						objSpriteSheet.SearchFrames("ProgressBar").Rectangles[0],
-																						null, 1);
+					objProgress.Background = new SpriteModel(null, objSpriteSheet.ContentKey, new GameObjectDimensions(0, 0),
+																									 objSpriteSheet.SearchFrames("ProgressBarBackground").Rectangles[0]);
+					objProgress.Bar = new SpriteModel(null, objSpriteSheet.ContentKey, new GameObjectDimensions(1, 1, null, 1),
+																						objSpriteSheet.SearchFrames("ProgressBar").Rectangles[0]);
 				// Añade la barra de progreso a la colección de sprites
 					AddControl(objProgress);
 				// Devuelve la barra de progreso
 					return objProgress;
 		}
-
 
 		/// <summary>
 		///		Actualiza los datos

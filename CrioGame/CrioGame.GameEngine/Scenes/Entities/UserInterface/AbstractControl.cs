@@ -10,15 +10,9 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
 	/// </summary>
 	public abstract class AbstractControl : AbstractDrawableModelBase
 	{
-		public AbstractControl(Rectangle rctPosition, TimeSpan tsBetweenUpdate, int intZOrder = 0) 
-								: base(null, null, tsBetweenUpdate, (int) rctPosition.X, (int) rctPosition.Y, null, intZOrder)
-		{ Position = rctPosition;
+		public AbstractControl(GameObjectDimensions objDimensions) : base(null, null, objDimensions)
+		{ Dimensions = objDimensions;
 		}
-
-		/// <summary>
-		///		Posición del control
-		/// </summary>
-		public Rectangle Position { get; set; }
 
 		/// <summary>
 		///		Fondo

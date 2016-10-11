@@ -29,8 +29,8 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 			}
 
 		public BrickModel(IScene objScene, GameObjectDimensions objDimensions, BrickType intType, PillModel.PillType intPill, 
-											TimeSpan tsBetweenUpdate, ColorEngine? clrColor = null, int intZOrder = 2) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+											ColorEngine? clrColor = null, int intZOrder = 2) 
+							: base(objScene, objDimensions)
 		{ Brick = intType;
 			Pill = intPill;
 			Strength = GetStrength(intType);
@@ -62,7 +62,7 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 		/// </summary>
 		public override void InitializeActor(IGameContext objContext)
 		{ AddSprite(objContext.GameController.ContentController.GetContent("Paddle") as SpriteSheetContent,
-								"Bricks", (int) Brick, 0, 0);
+								"Bricks", (int) Brick, new GameObjectDimensions(0, 0));
 		}
 
 		/// <summary>
@@ -81,7 +81,8 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 																					new ExplosionModel(Scene, 
 																														 new GameObjectDimensions(Dimensions.Position.X + Dimensions.ScaledDimensions.Width / 2, 
 																																											Dimensions.Position.Y + Dimensions.ScaledDimensions.Height / 2), 
-																														 new Vector2D(0, 5), Configuration.TimeEnemyExplosion));
+																														 new Vector2D(0, 5)), 
+																					Configuration.TimeEnemyExplosion);
 								// Activa el sonido
 									objContext.GameController.MainManager.GraphicsEngine.SoundController.Play(Configuration.ExplosionSound);
 								// Manda el mensaje para cambiar la puntuación
@@ -92,7 +93,8 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 																						new PillModel(Scene, Pill, 
 																													new GameObjectDimensions(Dimensions.Position.X + Dimensions.ScaledDimensions.Width / 2, 
 																																									 Dimensions.Position.Y + Dimensions.ScaledDimensions.Height + 1),
-																													new Vector2D(0, 3), TimeSpan.FromMilliseconds(5)));
+																													new Vector2D(0, 3)), 
+																						TimeSpan.FromMilliseconds(5));
 							}
 						else // ... manda el mensaje para cambiar la puntuación
 							objContext.GameController.EventsManager.Enqueue(new Messages.InformationMessage(Messages.InformationMessage.InformationType.AddScore, 10));

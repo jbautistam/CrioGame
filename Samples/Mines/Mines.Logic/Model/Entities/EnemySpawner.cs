@@ -11,7 +11,7 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 	/// </summary>
 	internal class EnemySpawner : AbstractEntitySpawner
 	{
-		public EnemySpawner(IScene objScene, TimeSpan tsSpawnTime, int intProbability = 75) : base(objScene, tsSpawnTime, intProbability) 
+		public EnemySpawner(IScene objScene, int intProbability = 75) : base(objScene, intProbability) 
 		{ 
 		}
 
@@ -31,8 +31,8 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 																						new GameObjectDimensions(Scene.ViewDefault.ViewPortScreen.Width, 
 																																		 objContext.MathHelper.Random((int) Scene.ViewDefault.ViewPortScreen.Height)),
 																						new Vector2D(-3, 0), 
-																						Configuration.TimeSpanMineUpdate, 
-																						Configuration.TimeSpanMineFire));
+																						Configuration.TimeSpanMineFire), 
+															Configuration.TimeSpanMineUpdate);
 		}
 	}
 }

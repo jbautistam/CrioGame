@@ -12,17 +12,15 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 	/// </summary>
 	public class SpriteModel : AbstractImageModelBase
 	{
-		public SpriteModel(AbstractModelBase objParent, string strContentKey, TimeSpan tsBetweenUpdate,
-											 int intX, int intY, Rectangle? rctSource = null, ColorEngine? clrTile = null,
-											 int intZOrder = 0)
-									: base(objParent, strContentKey, tsBetweenUpdate, intX, intY, clrTile, intZOrder)
+		public SpriteModel(AbstractModelBase objParent, string strContentKey,
+											 GameObjectDimensions objDimensions, Rectangle? rctSource = null)
+									: base(objParent, strContentKey, objDimensions, rctSource ?? new Rectangle())
 		{ if (rctSource != null)
 				{ RectangleSource = rctSource ?? new Rectangle();
-					Width = (int) (rctSource?.Width ?? 0);
-					Height = (int) (rctSource?.Height ?? 0);
+					Dimensions.Resize(rctSource?.Width ?? 0, rctSource?.Height ?? 0);
 				}
-			DeltaX = intX;
-			DeltaY = intY;
+			DeltaX = (int) objDimensions.Position.X;
+			DeltaY = (int) objDimensions.Position.Y;
 		}
 
 		/// <summary>
@@ -42,36 +40,15 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		/// <summary>
 		///		Dibuja el elemento
 		/// </summary>
-		public override void Draw(IGameContext objContext)
-		{ // Cambia la posición
-				if (Parent != null)
-					{ if (Parent is UserInterface.AbstractControl)
-							{ X = DeltaX + (int) (Parent as UserInterface.AbstractControl).Position.X;
-								Y = DeltaY + (int) (Parent as UserInterface.AbstractControl).Position.Y;
-							}
-						else if (Parent is AbstractActorModel)
-							{ X = DeltaX + (int) (Parent as AbstractActorModel).Dimensions.Position.X;
-								Y = DeltaY + (int) (Parent as AbstractActorModel).Dimensions.Position.Y;
-							}
-					}
-			// Dibuja la imagen
-				objContext.GameController.MainManager.GraphicsEngine.SpriteBatch.Draw(this);
-		}
-
-		/// <summary>
-		///		Dibuja el elemento
-		/// </summary>
 		public override void Draw(IGameContext objContext, Rectangle rctView)
 		{ // Cambia la posición
 				if (Parent != null)
 					{ if (Parent is UserInterface.AbstractControl)
-							{ X = DeltaX + (int) (Parent as UserInterface.AbstractControl).Position.X;
-								Y = DeltaY + (int) (Parent as UserInterface.AbstractControl).Position.Y;
-							}
+							Dimensions.MoveTo(DeltaX + (int) (Parent as UserInterface.AbstractControl).Dimensions.Position.X,
+																DeltaY + (int) (Parent as UserInterface.AbstractControl).Dimensions.Position.Y);
 						else if (Parent is AbstractActorModel)
-							{ X = DeltaX + (int) (Parent as AbstractActorModel).Dimensions.Position.X;
-								Y = DeltaY + (int) (Parent as AbstractActorModel).Dimensions.Position.Y;
-							}
+							Dimensions.MoveTo(DeltaX + (int) (Parent as AbstractActorModel).Dimensions.Position.X,
+																DeltaY + (int) (Parent as AbstractActorModel).Dimensions.Position.Y);
 					}
 			// Dibuja la imagen
 				objContext.GameController.MainManager.GraphicsEngine.SpriteBatch.Draw(this, rctView);

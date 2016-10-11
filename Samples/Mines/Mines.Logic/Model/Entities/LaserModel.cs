@@ -15,8 +15,8 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 			private const int cnstIntRateOfFire = 200;
 
 		public LaserModel(IScene objScene, int intFlagsSource, int intFlagsTarget, GameObjectDimensions objDimensions, 
-											Vector2D vctVelocity, string strTextureKey, TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+											Vector2D vctVelocity, string strTextureKey) 
+							: base(objScene, objDimensions)
 		{ Velocity = vctVelocity;
 			TextureKey = strTextureKey;
 			CollisionEvaluator = new CollisionTargets(this, intFlagsSource, intFlagsTarget);

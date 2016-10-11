@@ -15,7 +15,7 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Repository
 		/// <summary>
 		///		Carga los ladrillos de la escena
 		/// </summary>
-		internal List<BrickModel> LoadBricks(IScene objScene, IGameContext objContext, int intLevel, TimeSpan tsBall)
+		internal List<BrickModel> LoadBricks(IScene objScene, IGameContext objContext, int intLevel)
 		{ List<BrickModel> objColBricks = new List<BrickModel>();
 			bool blnLoaded = false;
 			
@@ -43,7 +43,7 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Repository
 																		intPill = (PillModel.PillType) objContext.MathHelper.Random(((int) PillModel.PillType.None) + 1);
 																// Añade el ladrillo
 																	objColBricks.Add(new BrickModel(objScene, new GameObjectDimensions(intLeft, intTop), 
-																																	intType, intPill, tsBall));
+																																	intType, intPill));
 																// Indica que se ha cargado algo correctamente
 																	blnLoaded = true;
 															}
@@ -52,7 +52,7 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Repository
 					catch {}
 				// Si no se ha cargado nada, se carga el contenido predeterminado
 					if (!blnLoaded)
-						objColBricks = LoadBricksDefault(objScene, objContext, tsBall);
+						objColBricks = LoadBricksDefault(objScene, objContext);
 				// Devuelve la colección de ladrillos
 					return objColBricks;
 		}
@@ -60,7 +60,7 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Repository
 		/// <summary>
 		///		Carga los ladrillos predeterminados
 		/// </summary>
-		private List<BrickModel> LoadBricksDefault(IScene objScene, IGameContext objContext, TimeSpan tsBall)
+		private List<BrickModel> LoadBricksDefault(IScene objScene, IGameContext objContext)
 		{	List<BrickModel> objColBricks = new List<BrickModel>();
 			int intTop = 10;
 
@@ -73,8 +73,7 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Repository
 										{	// Crea el ladrillo
 												objColBricks.Add(new BrickModel(objScene, new GameObjectDimensions(intLeft, intTop), 
 																												GetBrickType(intRow, intColumn), 
-																												(PillModel.PillType) objContext.MathHelper.Random(((int) PillModel.PillType.None) + 1),
-																												tsBall));
+																												(PillModel.PillType) objContext.MathHelper.Random(((int) PillModel.PillType.None) + 1)));
 											// Pasa a la siguiente coordenada
 												intLeft += 48;
 										}

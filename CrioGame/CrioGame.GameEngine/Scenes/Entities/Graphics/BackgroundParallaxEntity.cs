@@ -1,7 +1,6 @@
 ﻿using System;
 
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
-using Bau.Libraries.CrioGame.Common.Models;
 using Bau.Libraries.CrioGame.Common.Models.Structs;
 
 namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
@@ -12,9 +11,9 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 	public class BackgroundParallaxEntity : SpriteModel
 	{ 
 		public BackgroundParallaxEntity(IView objView, string strKey, 
-																	  TimeSpan tsBetweenUpdate, int intSpeed, 
+																	  int intSpeed,
 																	  int intX, int intY, int intZOrder = 0) 
-					: base(null, strKey, tsBetweenUpdate, intX, intY, null, null, intZOrder)
+					: base(null, strKey, new GameObjectDimensions(intX, intY, 0, 0, 1, 0, null, intZOrder))
 		{ Speed = intSpeed;
 			View = objView;
 		}
@@ -24,15 +23,16 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		/// </summary>
 		public override void Initialize(IGameContext objContext)
 		{ // Asigna el ancho y alto
-				Width = (int) View.ViewPortScreen.Width;
-				Height = (int) View.ViewPortScreen.Height;
+				Dimensions = new GameObjectDimensions(Dimensions.Position.X, Dimensions.Position.Y,
+																							View.ViewPortScreen.Width, View.ViewPortScreen.Height);
 			// Si dividimos la pantalla por el ancho de la textura, sabemos el número de rectángulos que necesitamos
 			// Añadimos 1 de forma que no exista ningún gap entre los diferentes rectángulos
-				RectangleDraws = new Rectangle[((int) View.ViewPortScreen.Width) / Width + 1];
+				RectangleDraws = new Rectangle[((int) View.ViewPortScreen.Width) / ((int) Dimensions.Position.Width) + 1];
 			// Asigna las posiciones iniciales del fondo
 			//! Necesitamos que los rectángulos se ajusten lado a lado para crear el efecto
 				for (int intIndex = 0; intIndex < RectangleDraws.Length; intIndex++)
-					RectangleDraws[intIndex] = new Rectangle(intIndex * Width, Y, Width, Height);
+					RectangleDraws[intIndex] = new Rectangle(intIndex * Dimensions.Position.Width, Dimensions.Position.X, 
+																									 Dimensions.Position.Width, Dimensions.Position.Height);
 		}
 
 		/// <summary>
@@ -40,23 +40,23 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		/// </summary>
 		public override void Update(IGameContext objContext)
 		{	for (int intIndex = 0; intIndex < RectangleDraws.Length; intIndex++)
-				{	int intX = (int) RectangleDraws[intIndex].X + Speed;
+				{	float fltX = (int) RectangleDraws[intIndex].X + Speed;
 
 						// Dependiendo de si se está moviendo hacia la izquierda o la derecha
 							if (Speed <= 0) // hacia la izquierda
 								{	// Check the texture is out of view then put that texture at the end of the screen
-										if (intX <= -Width)
-											intX = Width * (RectangleDraws.Length - 1);
+										if (fltX <= - Dimensions.Position.Width)
+											fltX = Dimensions.Position.Width * (RectangleDraws.Length - 1);
 									//WrapTextureToLeft(i);
 								}
 							else // hacia la derecha
 								{	// Check if the texture is out of view then position it to the start of the screen
-										if (intX >= Width * (RectangleDraws.Length - 1))
-											intX = -Width;
+										if (fltX >= Dimensions.Position.Width * (RectangleDraws.Length - 1))
+											fltX = -Dimensions.Position.Width;
 									//WrapTextureToRight(i);
 								}
 						// Asigna el nuevo rectángulo
-							RectangleDraws[intIndex] = new Rectangle(intX, RectangleDraws[intIndex].Y,
+							RectangleDraws[intIndex] = new Rectangle(fltX, RectangleDraws[intIndex].Y,
 																											 RectangleDraws[intIndex].Width, RectangleDraws[intIndex].Height);
 				}
 		}
@@ -79,24 +79,6 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 //nextTexture = 0;
 //positions[index].X = positions[nextTexture].X - texture.Width;
 //}
-
-		///// <summary>
-		/////		Dibuja el objeto
-		///// </summary>
-		//internal override void Draw(TimeSpan tsDrawTime, Engine.ICoconousController objGraphicsManager)
-		//{	for (int intIndex = 0; intIndex < arrVctPositions.Length; intIndex++)
-		//		{ Rectangle rctBackground = new Rectangle((int) arrVctPositions[intIndex].X, (int) arrVctPositions[intIndex].Y, Parent.ScreenWidth, Parent.ScreenHeight);
-
-		//				objGraphicsManager.SpriteBatch.Draw(Image.Texture, rctBackground, ColorEngine.White);
-		//		}
-		//}
-
-		/// <summary>
-		///		Dibuja el elemento
-		/// </summary>
-		public override void Draw(IGameContext objContext)
-		{ objContext.GameController.MainManager.GraphicsEngine.SpriteBatch.Draw(this);
-		}
 
 		/// <summary>
 		///		Dibuja el elemento

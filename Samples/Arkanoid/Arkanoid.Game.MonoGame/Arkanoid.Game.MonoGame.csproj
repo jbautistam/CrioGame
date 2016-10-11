@@ -62,9 +62,11 @@
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\CrioGame\CrioGame.Common\CrioGame.Common.csproj">
@@ -79,9 +81,6 @@
       <Project>{5bdcc9df-9132-4084-802c-22b8020216f6}</Project>
       <Name>CrioGame.ImplMonogame</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
   </ItemGroup>
   <Import Project="..\Arkanoid.Game.Logic\Arkanoid.Logic.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

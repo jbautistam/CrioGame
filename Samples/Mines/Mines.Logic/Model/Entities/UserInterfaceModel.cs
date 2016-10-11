@@ -11,8 +11,8 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 	/// </summary>
 	public class UserInterfaceModel : AbstractActorModel
 	{
-		public UserInterfaceModel(IScene objScene, int intScore, int intLifes, TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, new CrioGame.Common.Models.Structs.GameObjectDimensions(0, 0))
+		public UserInterfaceModel(IScene objScene, int intScore, int intLifes) 
+							: base(objScene, new CrioGame.Common.Models.Structs.GameObjectDimensions(0, 0))
 		{ Score = intScore;
 			Lifes = intLifes;
 		}

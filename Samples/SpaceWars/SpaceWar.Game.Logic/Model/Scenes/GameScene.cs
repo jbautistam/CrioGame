@@ -29,17 +29,20 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Scenes
 		public override void InitializeScene(IGameContext objContext)
 		{ // Añade el fondo parallax
 				Map.AddGameEntity(ViewDefault, Layer.Background.ToString(), 
-													new BackgroundParallaxEntity(ViewDefault, "Stars1Background", Configuration.TimeSpanParallax,
-																											 -2, 0, 0, 1));
+													new BackgroundParallaxEntity(ViewDefault, "Stars1Background",
+																											 -2, 0, 0, 1), 
+													Configuration.TimeSpanParallax);
 			// Añade los textos
 				Map.AddGameEntity(ViewDefault, Layer.UserInterface.ToString(), 
-													new UserInterfaceModel(this, Scores, Configuration.TimeSpanUserInterface));
+													new UserInterfaceModel(this, Scores), 
+													Configuration.TimeSpanUserInterface);
 			// Añade el jugador y el creador de entidades
 				Map.AddGameEntity(ViewDefault, LayerGame, 
 													new PlayerModel(this, 
 																					new GameObjectDimensions(ViewDefault.ViewPortScreen.Width / 2, 
 																																	 ViewDefault.ViewPortScreen.Height - 80)));
-				Map.AddControlEntity(new EnemySpawner(this, Scores, Configuration.TimeSpawnShip));
+				Map.AddControlEntity(new EnemySpawner(this, Scores), 
+														 Configuration.TimeSpawnShip);
 			// Crea las naves básicas
 				for (int intRow = 0; intRow < 3; intRow++)
 					for (int intColumn = 0; intColumn < 8; intColumn++)
@@ -47,7 +50,8 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Scenes
 								Map.AddGameEntity(ViewDefault, LayerGame,
 																	new ShipModel(this, new GameObjectDimensions(100 + intColumn * 80, 35 + intRow * 60, 0, 0, 0.5f),
 																								objContext.MathHelper.Random(1, 3), 
-																								new Vector2D(3, 3), 80, GetColor(intRow, intColumn), TimeSpan.FromMilliseconds(20)));
+																								new Vector2D(3, 3), 80, GetColor(intRow, intColumn)), 
+																	TimeSpan.FromMilliseconds(20));
 							// Indica que hay una nave más
 								Scores.Ships++;
 						}

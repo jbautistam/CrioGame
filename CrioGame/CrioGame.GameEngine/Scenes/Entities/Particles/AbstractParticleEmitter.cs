@@ -11,9 +11,8 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Particles
 	/// </summary>
 	public abstract class AbstractParticleEmitter : Graphics.AbstractActorModel
 	{
-		public AbstractParticleEmitter(IScene objScene, TimeSpan tsLifeTime, TimeSpan tsBetweenUpdate, 
-																	 GameObjectDimensions objDimensions) 
-								: base(objScene, tsBetweenUpdate, objDimensions)
+		public AbstractParticleEmitter(IScene objScene, TimeSpan tsLifeTime, GameObjectDimensions objDimensions) 
+								: base(objScene, objDimensions)
 		{ LifeTime = tsLifeTime;
 		}
 
@@ -43,10 +42,8 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Particles
 								CreateParticle(objContext);
 						// Mueve las partículas
 							for (int intIndex = 0; intIndex < Particles.Count; intIndex++)
-								if (Particles[intIndex].Active && objContext.ActualTime - Particles[intIndex].TimeLastUpdate > Particles[intIndex].TimeBetweenUpdate)
-									{	// Asigna el momento de última modificación
-											Particles[intIndex].TimeLastUpdate = objContext.ActualTime;
-										// Actualiza la partícula
+								if (Particles[intIndex].Active)
+									{	// Actualiza la partícula
 											Particles[intIndex].Update(objContext);
 										// Desactiva la partícula si está fuera de la vista
 											if (!Dimensions.HasPoint(Particles[intIndex].Dimensions.Position.X + Dimensions.Position.X,

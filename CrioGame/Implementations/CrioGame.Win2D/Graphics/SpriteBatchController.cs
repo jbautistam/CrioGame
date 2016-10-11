@@ -52,13 +52,6 @@ namespace Bau.Libraries.CrioGame.Win2D.Graphics
 		}
 
 		/// <summary>
-		///		Dibuja una imagen
-		/// </summary>
-		public void Draw(AbstractImageModelBase objImage)
-		{ Draw(objImage, rctScreen);
-		}
-
-		/// <summary>
 		///		Dibuja una imagen escalando en un rectángulo (el de la cámara)
 		/// </summary>
 		public void Draw(AbstractImageModelBase objImage, Rectangle rctCamera)
@@ -77,7 +70,7 @@ namespace Bau.Libraries.CrioGame.Win2D.Graphics
 						DrawCrop(objTexture, objImage, rctCamera);
 					else if (objImage.FullScreen) // ... dibuja a toda pantalla
 						DrawFullScreen(objTexture, objImage, rctCamera);
-					else if (objImage.Width != 0 && objImage.Height != 0) // ... sólo está definido rectangle target
+					else if (objImage.Dimensions.Position.Width != 0 && objImage.Dimensions.Position.Height != 0) // ... sólo está definido rectangle target
 						DrawScaled(objTexture, objImage, rctCamera);
 					else // ... tenemos dimensiones de la imagen y una parte de la imagen
 						DrawFull(objTexture, objImage, rctCamera);
@@ -90,10 +83,11 @@ namespace Bau.Libraries.CrioGame.Win2D.Graphics
 		{ CanvasBitmap objTexture = MainGame.ContentManager.GetImage(objImage.ContentKey);
 
 				// Dibuja la imagen
-					objSpriteBatch.DrawFromSpriteSheet(objTexture, Convert(objImage.X + rctCamera.X, 
-																																 objImage.Y + rctCamera.Y, 
-																																 objImage.Width, objImage.Height),
-																						 Convert(objImage.RectangleSource), Convert(objImage.Color));
+					objSpriteBatch.DrawFromSpriteSheet(objTexture, Convert(objImage.Dimensions.Position.X + rctCamera.X, 
+																																 objImage.Dimensions.Position.Y + rctCamera.Y, 
+																																 objImage.Dimensions.Position.Width, 
+																																 objImage.Dimensions.Position.Height),
+																						 Convert(objImage.RectangleSource), Convert(objImage.Dimensions.Color));
 		}
 
 		/// <summary>
@@ -115,28 +109,31 @@ namespace Bau.Libraries.CrioGame.Win2D.Graphics
 		///		Dibuja una imagen en una posición
 		/// </summary>
 		private void DrawAtPosition(CanvasBitmap objTexture, AbstractImageModelBase objImage, Rectangle rctCamera)
-		{ objSpriteBatch.Draw(objTexture, ConvertVector(objImage.X + rctCamera.X, objImage.Y + rctCamera.Y), Convert(objImage.Color));
+		{ objSpriteBatch.Draw(objTexture, 
+													ConvertVector(objImage.Dimensions.Position.X + rctCamera.X, 
+																				objImage.Dimensions.Position.Y + rctCamera.Y), 
+													Convert(objImage.Dimensions.Color));
 		}
 
 		/// <summary>
 		///		Dibuja una imagen escalada en un rectángulo
 		/// </summary>
 		private void DrawScaled(CanvasBitmap objTexture, AbstractImageModelBase objImage, Rectangle rctCamera)
-		{ objSpriteBatch.Draw(objTexture, Convert(objImage.X + rctCamera.X, 
-																							objImage.Y + rctCamera.Y, 
-																							objImage.Width, 
-																							objImage.Height), 
-													Convert(objImage.Color));
+		{ objSpriteBatch.Draw(objTexture, Convert(objImage.Dimensions.Position.X + rctCamera.X, 
+																							objImage.Dimensions.Position.Y + rctCamera.Y, 
+																							objImage.Dimensions.Position.Width, 
+																							objImage.Dimensions.Position.Height), 
+													Convert(objImage.Dimensions.Color));
 		}
 
 		/// <summary>
 		///		Dibuja un objeto en toda la pantalla (los fondos, por ejemplo)
 		/// </summary>
 		private void DrawFullScreen(CanvasBitmap objTexture, AbstractImageModelBase objImage, Rectangle rctCamera)
-		{ objSpriteBatch.Draw(objTexture, Convert(objImage.X + rctCamera.X, 
-																							objImage.Y + rctCamera.Y, 
+		{ objSpriteBatch.Draw(objTexture, Convert(objImage.Dimensions.Position.X + rctCamera.X, 
+																							objImage.Dimensions.Position.Y + rctCamera.Y, 
 																							rctCamera.Width, rctCamera.Height), 
-													Convert(objImage.Color));
+													Convert(objImage.Dimensions.Color));
 		}
 
 		/// <summary>
@@ -144,10 +141,12 @@ namespace Bau.Libraries.CrioGame.Win2D.Graphics
 		/// </summary>
 		private void DrawCrop(CanvasBitmap objTexture, AbstractImageModelBase objImage, Rectangle rctCamera)
 		{ DrawTexture(objTexture, 
-									new Vector2D(objImage.X + rctCamera.X, objImage.Y + rctCamera.Y), 
+									new Vector2D(objImage.Dimensions.Position.X + rctCamera.X, objImage.Dimensions.Position.Y + rctCamera.Y), 
 									null,
-									objImage.RectangleSource, new Vector2D(objImage.ScaledWidth / 2, objImage.ScaledHeight / 2),
-									objImage.Angle, new Vector2D(objImage.Scale, objImage.Scale), objImage.Color);
+									objImage.RectangleSource, new Vector2D(objImage.Dimensions.ScaledDimensions.Width / 2, 
+																												 objImage.Dimensions.ScaledDimensions.Height / 2),
+									objImage.Dimensions.Angle, new Vector2D(objImage.Dimensions.Scale, objImage.Dimensions.Scale), 
+									objImage.Dimensions.Color);
 		}
 
 		/// <summary>
@@ -170,18 +169,12 @@ namespace Bau.Libraries.CrioGame.Win2D.Graphics
 		///		Dibuja una imagen escalada a partir de parte de una imagen
 		/// </summary>
 		private void DrawFull(CanvasBitmap objTexture, AbstractImageModelBase objImage, Rectangle rctCamera)
-		{ objSpriteBatch.DrawFromSpriteSheet(objTexture, Convert(objImage.X + rctCamera.X, 
-																							objImage.Y + rctCamera.Y, 
-																							objImage.Width, objImage.Height), 
+		{ objSpriteBatch.DrawFromSpriteSheet(objTexture, Convert(objImage.Dimensions.Position.X + rctCamera.X, 
+																														 objImage.Dimensions.Position.Y + rctCamera.Y, 
+																														 objImage.Dimensions.Position.Width, 
+																														 objImage.Dimensions.Position.Height), 
 																				 Convert(objImage.RectangleSource), 
-																				 Convert(objImage.Color));
-		}
-
-		/// <summary>
-		///		Dibuja un texto
-		/// </summary>
-		public void DrawText(AbstractTextModel objText)
-		{ DrawText(objText, rctScreen);
+																				 Convert(objImage.Dimensions.Color));
 		}
 
 		/// <summary>
@@ -191,9 +184,9 @@ namespace Bau.Libraries.CrioGame.Win2D.Graphics
 		{ CanvasTextFormat objFont = MainGame.ContentManager.GetSpriteFont(objText.ContentKey);
 
 				objDrawingSession.DrawText(objText.Text, 
-																	ConvertVector(objText.X + rctCamera.X, 
-																								objText.Y + rctCamera.Y),
-																	ConvertTocolor(objText.Color));
+																	ConvertVector(objText.Dimensions.Position.X + rctCamera.X, 
+																								objText.Dimensions.Position.Y + rctCamera.Y),
+																	ConvertTocolor(objText.Dimensions.Color));
 
 				objDrawingSession.DrawRectangle(new Windows.Foundation.Rect(50, 50, 50, 50),
 																				ConvertTocolor(ColorEngine.Black));

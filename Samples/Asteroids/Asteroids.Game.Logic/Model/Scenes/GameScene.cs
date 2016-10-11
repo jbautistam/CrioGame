@@ -29,18 +29,19 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Scenes
 		public override void InitializeScene(IGameContext objContext)
 		{ // Añade el fondo parallax
 				Map.AddGameEntity(ViewDefault, Layer.Background.ToString(), 
-													new BackgroundParallaxEntity(ViewDefault, "Stars1Background", Configuration.TimeSpanParallax,
-																											 -2, 0, 0, 1));
+													new BackgroundParallaxEntity(ViewDefault, "Stars1Background", 
+																											 -2, 0, 0, 1),
+													Configuration.TimeSpanParallax);
 			// Añade los textos
 				Map.AddGameEntity(ViewDefault, Layer.UserInterface.ToString(), 
-													new UserInterfaceModel(this, Scores, Configuration.TimeSpanUserInterface));
+													new UserInterfaceModel(this, Scores), 
+													Configuration.TimeSpanUserInterface);
 			// Añade las entidades
 				Map.AddGameEntity(ViewDefault, LayerGame, 
 													new PlayerModel(this, 
 																					new GameObjectDimensions(ViewDefault.ViewPortScreen.Width / 2, 
 																																	 ViewDefault.ViewPortScreen.Height / 2)));
-				Map.AddGameEntity(ViewDefault, LayerGame, 
-													new EnemySpawner(this, Scores, Configuration.TimeSpawnMine));
+				Map.AddGameEntity(ViewDefault, LayerGame, new EnemySpawner(this, Scores), Configuration.TimeSpawnMine);
 		}
 
 		/// <summary>

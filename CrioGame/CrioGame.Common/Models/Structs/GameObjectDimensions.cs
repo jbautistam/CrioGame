@@ -7,6 +7,11 @@ namespace Bau.Libraries.CrioGame.Common.Models.Structs
 	/// </summary>
 	public class GameObjectDimensions
 	{
+		public GameObjectDimensions(float fltX, float fltY, ColorEngine? clrColor, int intZOrder = 0)
+							: this(fltX, fltY, 0, 0, 1, 0, clrColor, intZOrder)
+		{
+		}
+
 		public GameObjectDimensions(float fltX, float fltY, float fltWidth = 0, float fltHeight = 0,
 																float fltScale = 1, float fltAngle = 0, ColorEngine? clrColor = null,
 																int intZOrder = 0)
@@ -80,15 +85,29 @@ namespace Bau.Libraries.CrioGame.Common.Models.Structs
 		/// <summary>
 		///		Desplaza el objeto
 		/// </summary>
-		public void Translate(float fltX, float fltY)
-		{	Position = new Rectangle(Position.X + fltX, Position.Y + fltY, Position.Width, Position.Height);
+		public void Translate(float fltDeltaX, float fltDeltaY)
+		{	Position = new Rectangle(Position.X + fltDeltaX, Position.Y + fltDeltaY, Position.Width, Position.Height);
 		}
 
 		/// <summary>
 		///		Mueve el objeto a una posición
 		/// </summary>
-		public void MoveTo(float fltX, float fltY)
-		{ Position = new Rectangle(fltX, fltY, Position.Width, Position.Height);
+		public void MoveTo(float fltNewX, float fltNewY)
+		{ Position = new Rectangle(fltNewX, fltNewY, Position.Width, Position.Height);
+		}
+
+		/// <summary>
+		///		Cambia el tamaño
+		/// </summary>
+		public void Resize(Rectangle rctRectangle)
+		{ Resize(rctRectangle.Width, rctRectangle.Height);
+		}
+
+		/// <summary>
+		///		Cambia el tamaño
+		/// </summary>
+		public void Resize(float fltNewWidth, float fltNewHeight)
+		{ Position = new Rectangle(Position.X, Position.Y, fltNewWidth, fltNewHeight);
 		}
 
 		/// <summary>

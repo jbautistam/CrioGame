@@ -10,11 +10,9 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 	///		Modelo con los datos de una explosión
 	/// </summary>
 	public class ExplosionModel : AbstractActorModel
-	{ // Variables privadas
-			private int intUpdates = 0;
-
-		public ExplosionModel(IScene objScene, GameObjectDimensions objDimensions, Polar2D vctVelocity, TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+	{ 
+		public ExplosionModel(IScene objScene, GameObjectDimensions objDimensions, Polar2D vctVelocity) 
+							: base(objScene, objDimensions)
 		{ Velocity = vctVelocity;
 		}
 
@@ -22,7 +20,7 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 		///		Inicializa el objeto
 		/// </summary>
 		public override void InitializeActor(IGameContext objContext)
-		{ AddAnimation("Rocks", "Explosion", "Default", "RocksImage", 0, 0);
+		{ AddAnimation("Rocks", "Explosion", "Default", 0, 0);
 		}
 
 		/// <summary>
@@ -30,7 +28,7 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 		/// </summary>
 		public override void UpdateActor(IGameContext objContext)
 		{ // Modifica las coordenadas y el estado del objeto
-				if (Dimensions.Position.X < 0 || intUpdates++ >= 24)
+				if (Dimensions.Position.X < 0 || ((Sprites[0] as SpriteAnimableModel)?.Loops ?? 0) > 0)
 					Scene.Map.RemoveGameEntity(this);
 				else
 					{ Vector2D vctVelocity = Velocity.ToVector();

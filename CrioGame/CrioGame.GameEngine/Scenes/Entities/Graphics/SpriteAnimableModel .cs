@@ -13,10 +13,9 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 	public class SpriteAnimableModel : SpriteModel
 	{	
 		public SpriteAnimableModel(AbstractModelBase objParent, 
-															 string strSheetContentKey, string strFramesKey, string strAnimationKey, string strContentKey, TimeSpan tsBetweenUpdate,
-															 int intX, int intY, 
-															 ColorEngine? clrTile = null, int intZOrder = 0) 
-								: base(objParent, strContentKey, tsBetweenUpdate, intX, intY, null, clrTile, intZOrder)
+															 string strSheetContentKey, string strFramesKey, string strAnimationKey, 
+															 GameObjectDimensions objDimensions) 
+								: base(objParent, null, objDimensions)
 		{ SheetContentKey = strSheetContentKey;
 			FramesKey = strFramesKey;
 			AnimationKey = strAnimationKey;
@@ -47,7 +46,10 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 				ActualFrames = SpriteSheet.SearchFrames(strFramesKey);
 				ActualAnimation = ActualFrames.SearchAnimation(strAnimationKey);
 				ActualFrameIndex = 0;
+				Loops = 0;
 				LastUpdate = TimeSpan.Zero;
+			// Asigna la clave del contenido
+				ContentKey = SpriteSheet.ContentKey;
 			// Cambia las dimensiones a dibujar
 				UpdateFrame();
 		}
@@ -59,6 +61,9 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		{ if (LastUpdate.TotalMilliseconds == 0 || (objContext.ActualTime - LastUpdate).TotalMilliseconds > ActualAnimation.FrameTime)
 				{ // Modifica el frame actual
 						ActualFrameIndex = (ActualFrameIndex + 1) % ActualAnimation.Frames.Length;
+					// Modifica el número de bucles
+						if (ActualFrameIndex == 0)
+							Loops++;
 					// Asigna el rectángulo del frame al rectángulo a dibujar
 						UpdateFrame();
 					// Cambia la fecha de última modificación
@@ -73,8 +78,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		{ // Cambia el rectángulo a dibujar
 				RectangleSource = ActualFrames.Rectangles[ActualAnimation.Frames[ActualFrameIndex]];
 			// Asigna las dimensiones al sprite (por supesto, después de asignar la animación)
-				Width = (int) RectangleSource.Width;
-				Height = (int) RectangleSource.Height;
+				Dimensions.Resize(RectangleSource.Width, RectangleSource.Height);
 		}
 
 		/// <summary>
@@ -113,10 +117,22 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		internal int ActualFrameIndex { get; set; }
 
 		/// <summary>
-		///		Número de frames
+		///		Número de bucles de animación
 		/// </summary>
-		public int Frames 
-		{ get { return ActualAnimation.Frames.Length; }
+		public int Loops { get; private set; } = 0;
+
+		///// <summary>
+		/////		Número de frames
+		///// </summary>
+		//public int Frames 
+		//{ get { return ActualAnimation.Frames.Length; }
+		//}
+
+		/// <summary>
+		///		Dimensiones del frame actual
+		/// </summary>
+		public Rectangle ActualFrameDimensions
+		{ get { return ActualFrames.Rectangles[ActualAnimation.Frames[ActualFrameIndex]]; }
 		}
 
 		/// <summary>

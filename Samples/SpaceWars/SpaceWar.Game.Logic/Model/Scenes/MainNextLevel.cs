@@ -29,9 +29,9 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Scenes
 		{ Map.AddGameEntity(ViewDefault, Layer.Background.ToString(), new BackgroundEntity(ViewDefault, "Stars2Background", 0));
 			Map.AddGameEntity(ViewDefault, Layer.UserInterface.ToString(),
 												new TextModel(null, "Font", "Enhorabuena, pulse una tecla para pasar de nivel",
-																			(int) (ViewDefault.ViewPortScreen.Width / 2 - 200),
-																			(int) (ViewDefault.ViewPortScreen.Height / 2),
-																			ColorEngine.White));
+																			new GameObjectDimensions(ViewDefault.ViewPortScreen.Width / 2 - 200,
+																															 ViewDefault.ViewPortScreen.Height / 2,
+																															 ColorEngine.White)));
 		}
 
 		/// <summary>

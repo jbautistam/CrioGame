@@ -15,13 +15,10 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 				{ Ship,
 					BossGround
 				}
-		// Variables privadas
-			private int intUpdates = 0;
 
-		private ExplosionModel(IScene objScene, ExplosionType intType, float fltX, float fltY, Vector2D vctVelocity, 
-													 string strSheetContentKey, string strFramesKey, string strAnimationKey, string strContentKey, 
-													 TimeSpan tsBetweenUpdate) 
-							: base(null, strSheetContentKey, strFramesKey, strAnimationKey, strContentKey, tsBetweenUpdate, (int) fltX, (int) fltY)
+		private ExplosionModel(IScene objScene, ExplosionType intType, GameObjectDimensions objDimensions, Vector2D vctVelocity, 
+													 string strSheetContentKey, string strFramesKey, string strAnimationKey) 
+							: base(null, strSheetContentKey, strFramesKey, strAnimationKey, objDimensions)
 		{ Scene = objScene;
 			Velocity = vctVelocity;
 			Type = intType;
@@ -30,8 +27,7 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 		/// <summary>
 		///		Crea una explosión
 		/// </summary>
-		public static ExplosionModel Create(IScene objScene, ExplosionType intType, float fltX, float fltY, Vector2D vctVelocity, 
-																				TimeSpan tsBetweenUpdate)
+		public static ExplosionModel Create(IScene objScene, ExplosionType intType, GameObjectDimensions objDimensions, Vector2D vctVelocity)
 		{ string strFramesKey = "ExplosionShip";
 		
 				// Obtiene la clave de animación
@@ -41,7 +37,7 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 								break;
 						}
 				// Crea la explosión
-					return new ExplosionModel(objScene, intType, fltX, fltY, vctVelocity, "SpaceWar", strFramesKey, "Default", "SpaceWarImage", tsBetweenUpdate);
+					return new ExplosionModel(objScene, intType, objDimensions, vctVelocity, "SpaceWar", strFramesKey, "Default");
 		}
 
 		/// <summary>
@@ -57,13 +53,11 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 		/// </summary>
 		public override void Update(IGameContext objContext)
 		{ // Modifica las coordenadas y el estado del objeto
-				if (X < 0 || intUpdates++ >= Frames)
+				if (Dimensions.Position.X < 0 || Loops > 0)
 					Scene.Map.RemoveGameEntity(this);
 				else
-					{ X += (int) Velocity.X;
-						Y += (int) Velocity.Y;
-						X = (int) objContext.MathHelper.ClampScreenWidth(X, ScaledWidth, Scene.ViewDefault);
-						Y = (int) objContext.MathHelper.ClampScreenHeight(Y, ScaledHeight, Scene.ViewDefault);
+					{ Dimensions.Translate(Velocity);
+						Dimensions.ClampToView(Scene.ViewDefault.ViewPortScreen.Width, Scene.ViewDefault.ViewPortScreen.Height);
 					}
 			// Llama al método base
 				base.Update(objContext);

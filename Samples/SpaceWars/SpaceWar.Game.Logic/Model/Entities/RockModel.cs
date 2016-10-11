@@ -11,9 +11,8 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 	/// </summary>
 	internal class RockModel : AbstractActorModel
 	{ 
-		public RockModel(IScene objScene, EnemySpawner objSpawner, GameObjectDimensions objDimensions, Vector2D vctVelocity, string strFramesKey,
-										 TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+		public RockModel(IScene objScene, EnemySpawner objSpawner, GameObjectDimensions objDimensions, Vector2D vctVelocity, string strFramesKey) 
+							: base(objScene, objDimensions)
 		{ Spawner = objSpawner;
 			Velocity = vctVelocity;
 			FramesKey = strFramesKey;
@@ -23,9 +22,9 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 		///		Inicializa el objeto
 		/// </summary>
 		public override void InitializeActor(IGameContext objContext)
-		{ SpriteModel objSprite = AddAnimation("SpaceWar", FramesKey, "Default", "SpaceWarImage", 0, 0);
+		{ SpriteModel objSprite = AddAnimation("SpaceWar", FramesKey, "Default", 0, 0);
 
-				objSprite.Scale = Dimensions.Scale;
+				objSprite.Dimensions.Scale = Dimensions.Scale;
 		}
 
 		/// <summary>

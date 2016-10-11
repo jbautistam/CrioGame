@@ -17,8 +17,8 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 
 		public LaserModel(IScene objScene, int intFlagsSource, int intFlagsTarget, 
 											GameObjectDimensions objDimensions, Vector2D vctVelocity, 
-											string strTextureKey, TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+											string strTextureKey) 
+							: base(objScene, objDimensions)
 		{ Movement = new Movements.MovementVelocity(this, vctVelocity);
 			TextureKey = strTextureKey;
 			CollisionEvaluator = new CollisionTargets(this, intFlagsSource, intFlagsTarget);

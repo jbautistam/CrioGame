@@ -11,7 +11,7 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 	/// </summary>
 	internal class EnemySpawner : AbstractEntitySpawner
 	{
-		public EnemySpawner(IScene objScen, ScoresModel objScore, TimeSpan tsSpawnTime, int intProbability = 75) : base(objScen, tsSpawnTime, intProbability) 
+		public EnemySpawner(IScene objScen, ScoresModel objScore, int intProbability = 75) : base(objScen, intProbability) 
 		{ Scores = objScore;
 		}
 
@@ -52,8 +52,8 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 							Scene.Map.AddGameEntity(Scene.ViewDefault, Configuration.LayerGame, 
 																			new RockModel(Scene, this, objDimensions, 
 																									  new Polar2D(objContext.MathHelper.Random((int) (Math.PI * 2)), objContext.MathHelper.Random(2, 10)),
-																									  $"Rock{objContext.MathHelper.Random(5) + 1}",
-																									  Configuration.TimeSpanMineUpdate));
+																									  $"Rock{objContext.MathHelper.Random(5) + 1}"),
+																			Configuration.TimeSpanMineUpdate);
 				}
 		}
 

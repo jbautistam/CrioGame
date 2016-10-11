@@ -15,9 +15,8 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 		// Variables privadas
 			private TimeSpan tsPreviousFireTime = TimeSpan.Zero;
 
-		public MineModel(IScene objScene, GameObjectDimensions objDimensions, Vector2D vctVelocity, 
-										 TimeSpan tsBetweenUpdate, TimeSpan tsFireSpawnTime) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+		public MineModel(IScene objScene, GameObjectDimensions objDimensions, Vector2D vctVelocity, TimeSpan tsFireSpawnTime) 
+							: base(objScene, objDimensions)
 		{ FireSpawnTime = tsFireSpawnTime;
 			Velocity = vctVelocity;
 			CollisionEvaluator = new CollisionTargets(this, 
@@ -29,7 +28,7 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 		///		Inicializa el objeto
 		/// </summary>
 		public override void InitializeActor(IGameContext objContext)
-		{ AddAnimation("Mine", "Default", "Default", "MineImage", 0, 0);
+		{ AddAnimation("Mine", "Default", "Default", 0, 0);
 		}
 
 		/// <summary>
@@ -43,7 +42,9 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 						Scene.Map.RemoveGameEntity(this);
 					// Añade una explosión a la capa
 						Scene.Map.AddGameEntity(Scene.ViewDefault, Configuration.LayerGame,
-																		new ExplosionModel(Scene, Dimensions.Position.X, Dimensions.Position.Y, Velocity, Configuration.TimeEnemyExplosion));
+																		new ExplosionModel(Scene, new GameObjectDimensions(Dimensions.Position.X, Dimensions.Position.Y), 
+																											 Velocity), 
+																		Configuration.TimeEnemyExplosion);
 					// Activa el sonido
 						objContext.GameController.MainManager.GraphicsEngine.SoundController.Play(Configuration.ExplosionSound);
 					// Manda el mensaje para cambiar la puntuación
@@ -68,7 +69,8 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 																																													 0, Scene.ViewDefault.ViewPortScreen.Width),
 																															 objContext.MathHelper.Clamp(Dimensions.Position.Y + Dimensions.ScaledDimensions.Height / 2, 
 																																													 0, Scene.ViewDefault.ViewPortScreen.Height)),
-																			new Vector2D(-5, 0), "Laser", Configuration.TimeSpanMineLaserUpdate));
+																			new Vector2D(-5, 0), "Laser"), 
+											Configuration.TimeSpanMineLaserUpdate);
 							}
 				}
 		}

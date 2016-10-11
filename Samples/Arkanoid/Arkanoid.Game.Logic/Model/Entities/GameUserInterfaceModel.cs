@@ -25,8 +25,8 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 				}
 
 		public GameUserInterfaceModel(IScene objScene, IView objViewUserInterface, IView objViewGame, ScoresModel objScore, 
-																	PaddleModel objPaddle, BallModel objBall, int intBricks,
-																	TimeSpan tsBetweenUpdate) : base(objScene, tsBetweenUpdate, new GameObjectDimensions(0, 0))
+																	PaddleModel objPaddle, BallModel objBall, int intBricks) 
+							: base(objScene, new GameObjectDimensions(0, 0))
 		{ ViewUserInterface = objViewUserInterface;
 			ViewGame = objViewGame;
 			Paddle = objPaddle;
@@ -44,13 +44,13 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 				Scene.Map.AddGameEntity(ViewUserInterface, Scenes.GameScene.Layer.Background.ToString(),
 																new BackgroundEntity(Scene.ViewDefault, "MainBackground", 0));
 			// Inicializa los textos
-				base.AddText("Font", "Nivel", 20, 20);
-				base.AddText("Font", Scores.Level.ToString(), 20, 40);
-				base.AddText("Font", "Puntos", 20, 60);
-				ScoreLabel = base.AddText("Font", Scores.Score.ToString(), 20, 80);
-				base.AddText("Font", "Ladrillos", 20, 100);
+				AddText("Font", "Nivel", 20, 20);
+				AddText("Font", Scores.Level.ToString(), 20, 40);
+				AddText("Font", "Puntos", 20, 60);
+				ScoreLabel = AddText("Font", Scores.Score.ToString(), 20, 80);
+				AddText("Font", "Ladrillos", 20, 100);
 				BricksLabel = base.AddText("Font", Bricks.ToString(), 20, 120);
-				base.AddText("Font", "Vidas", 20, 140);
+				AddText("Font", "Vidas", 20, 140);
 				LifesLabel = base.AddText("Font", Scores.Level.ToString(), 20, 160);
 		}
 
@@ -139,8 +139,7 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 				{ BallModel objBall = new BallModel(Scene, 
 																						new GameObjectDimensions(Balls[0].Dimensions.Position.X, 
 																																		 Balls[0].Dimensions.Position.Y),
-																						new Vector2D(objContext.MathHelper.Random(-3, 3), -5), 
-																						Balls[0].TimeBetweenUpdate);
+																						new Vector2D(objContext.MathHelper.Random(-3, 3), -5));
 
 						// Añade la pelota al juego
 							Scene.Map.AddGameEntity(ViewGame, Scenes.GameScene.LayerGame, objBall);
@@ -190,9 +189,9 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 					{	case SceneType.Waiting:
 								// Crea un mensaje
 									Message = new TextModel(this, "Font", "Pulse una tecla",
-																					(int) (ViewGame.ViewPortScreen.Width / 2 - 200),
-																					(int) (ViewGame.ViewPortScreen.Height / 2),
-																					ColorEngine.Red);
+																					new GameObjectDimensions((int) (ViewGame.ViewPortScreen.Width / 2 - 200),
+																																	 (int) (ViewGame.ViewPortScreen.Height / 2),
+																																	 ColorEngine.Red));
 								// Muestra el mensaje
 									Scene.Map.AddGameEntity(ViewGame, Scenes.GameScene.LayerGame, Message);
 							break;

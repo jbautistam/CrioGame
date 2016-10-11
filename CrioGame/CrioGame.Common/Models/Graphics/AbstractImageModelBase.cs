@@ -9,17 +9,16 @@ namespace Bau.Libraries.CrioGame.Common.Models.Graphics
 	/// </summary>
 	public abstract class AbstractImageModelBase : AbstractDrawableModelBase
 	{
-		public AbstractImageModelBase(AbstractModelBase objParent, string strContentKey, TimeSpan tsBetweenUpdate,
-																	int intX, int intY, Rectangle rctSource, ColorEngine? clrTile = null,
-																	int intZOrder = 0)
-									: base(objParent, strContentKey, tsBetweenUpdate, intX, intY, clrTile, intZOrder)
+		public AbstractImageModelBase(AbstractModelBase objParent, string strContentKey, 
+																	GameObjectDimensions objDimensions, Rectangle rctSource)
+									: base(objParent, strContentKey, objDimensions)
 		{ RectangleSource = rctSource;
 		}
 
-		public AbstractImageModelBase(AbstractModelBase objParent, string strContentKey, TimeSpan tsBetweenUpdate,
+		public AbstractImageModelBase(AbstractModelBase objParent, string strContentKey, 
 																	int intX, int intY, ColorEngine? clrTile = null,
 																	int intZOrder = 0)
-									: base(objParent, strContentKey, tsBetweenUpdate, intX, intY, clrTile, intZOrder)
+									: base(objParent, strContentKey, new GameObjectDimensions(intX, intY, 0, 0, 1, 0, clrTile, intZOrder))
 		{
 		}
 

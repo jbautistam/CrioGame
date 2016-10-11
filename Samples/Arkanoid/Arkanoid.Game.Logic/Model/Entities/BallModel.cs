@@ -16,8 +16,8 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 			private const int cnstMinVelocity = 5;
 			private const int cnstMaxVelocity = 8;
 
-		public BallModel(IScene objScene, GameObjectDimensions objDimensions, Vector2D vctVelocity, TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+		public BallModel(IScene objScene, GameObjectDimensions objDimensions, Vector2D vctVelocity) 
+							: base(objScene, objDimensions)
 		{ Velocity = vctVelocity;
 			StartPosition = new Vector2D(objDimensions.Position.X, objDimensions.Position.Y);
 			StartVelocity = vctVelocity;
@@ -39,7 +39,7 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 		/// </summary>
 		public override void InitializeActor(IGameContext objContext)
 		{ AddSprite(objContext.GameController.ContentController.GetContent("Paddle") as SpriteSheetContent,
-								"Ball", 0, 0, 0);
+								"Ball", 0, new GameObjectDimensions(0, 0));
 		}
 
 		/// <summary>

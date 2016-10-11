@@ -27,9 +27,8 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 			None
 		}
 
-		public PillModel(IScene objScene, PillType intType, GameObjectDimensions objDimensions, 
-										 Vector2D vctVelocity, TimeSpan tsBetweenUpdate) 
-							: base(objScene, tsBetweenUpdate, objDimensions)
+		public PillModel(IScene objScene, PillType intType, GameObjectDimensions objDimensions, Vector2D vctVelocity) 
+							: base(objScene, objDimensions)
 		{ Pill = intType;
 			CollisionEvaluator = new CollisionTargets(this, 
 																								(int) Configuration.GroupCollisionObjects.Pill,
@@ -41,7 +40,7 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 		///		Inicializa el objeto
 		/// </summary>
 		public override void InitializeActor(IGameContext objContext)
-		{ AddAnimation("Paddle", Pill.ToString(), "Default", "PaddleImage", 0, 0);
+		{ AddAnimation("Paddle", Pill.ToString(), "Default", 0, 0);
 		}
 
 		/// <summary>

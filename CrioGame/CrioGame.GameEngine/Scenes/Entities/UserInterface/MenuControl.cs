@@ -10,7 +10,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
 	/// </summary>
 	public class MenuControl : AbstractControl
 	{
-		public MenuControl(Rectangle rctPosition, TimeSpan tsBetweenUpdate, int intZOrder = 0) : base(rctPosition, tsBetweenUpdate, intZOrder)
+		public MenuControl(GameObjectDimensions objDimensions) : base(objDimensions)
 		{
 		}
 
@@ -41,13 +41,6 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
 								for (int intIndex = 0; intIndex < Items.Count; intIndex++)
 									Items[intIndex].Focused = ActualIndex == intIndex;
 				}
-		}
-
-		/// <summary>
-		///		Dibuja los elementos
-		/// </summary>
-		public override void Draw(IGameContext objContext)
-		{ // ... en realidad todo se dibuja con la función Draw(objContext, rctCamera)
 		}
 
 		/// <summary>

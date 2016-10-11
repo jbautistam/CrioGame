@@ -10,11 +10,9 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 	///		Modelo con los datos de una explosión
 	/// </summary>
 	public class ExplosionModel : SpriteAnimableModel
-	{ // Variables privadas
-			private int intUpdates = 0;
-
-		public ExplosionModel(IScene objScene, float fltX, float fltY, Vector2D vctVelocity, TimeSpan tsBetweenUpdate) 
-							: base(null, "Explosion", "Default", "Default", "ExplosionImage", tsBetweenUpdate, (int) fltX, (int) fltY)
+	{ 
+		public ExplosionModel(IScene objScene, GameObjectDimensions objDimensions, Vector2D vctVelocity) 
+							: base(null, "Explosion", "Default", "Default",  objDimensions)
 		{ Scene = objScene;
 			Velocity = vctVelocity;
 		}
@@ -31,14 +29,12 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 		/// </summary>
 		public override void Update(IGameContext objContext)
 		{ // Modifica las coordenadas y el estado del objeto
-				if (X + Velocity.X <= 0 || intUpdates++ >= Frames)
+				if (Dimensions.Position.X + Velocity.X <= 0 || Loops > 0)
 					Scene.Map.RemoveGameEntity(this);
 				else
 					{ // Controla los movimientos
-							X += (int) Velocity.X;
-							Y += (int) Velocity.Y;
-							X = (int) objContext.MathHelper.ClampScreenWidth(X, ScaledWidth, Scene.ViewDefault);
-							Y = (int) objContext.MathHelper.ClampScreenHeight(Y, ScaledHeight, Scene.ViewDefault);
+							Dimensions.Translate(Velocity.X, Velocity.Y);
+							Dimensions.ClampToView(Scene.ViewDefault.ViewPortScreen.Width, Scene.ViewDefault.ViewPortScreen.Height);
 					}
 			// Llama al método base
 				base.Update(objContext);
