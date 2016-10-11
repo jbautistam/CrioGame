@@ -1,0 +1,136 @@
+﻿# Lista de imágenes, spritesheet, animaciones...
+
+# Imagen: Image Key; Ruta 
+# Música ambiente: Song Key; Ruta
+# Efecto de sonido: Effect Key; Ruta
+# Fuente: Font Key; Ruta
+# Hoja de sprites: SpriteSheet Key ImageKey
+# Rectángulo de un sprite: Rectangle	KeySheet Left Top Width Height
+# Animación: Animation Key Time [IndexFrame IndexFrame...]
+# Comentarios:
+#    Key no puede contener espacios
+
+# Ejemplo
+# Image MenuBackground Images\Backgrounds\mainMenu
+# Image Paddle Images\Sprites\Bricks
+# Song GameSong Sounds\gameMusic
+# SpriteSheet			Paddle										PaddleImage
+# 	Sheet					Brick
+# 		Rectangle			0 1 47 24
+# 		Rectangle			48 1 47 24
+# 		Animation			Normal	30		0 1 2 1
+
+
+# Imágenes
+Image					MenuBackground							Assets\Images\Backgrounds\mainMenu.png
+Image					MainBackground							Assets\Images\Backgrounds\backGround2.jpg
+Image					UserInterfaceBackground			Assets\Images\Backgrounds\backGround1.jpg
+Image					GameOverBackground					Assets\Images\Backgrounds\endMenu.png
+Image					PaddleImage									Assets\Images\Sprites\Bricks.png
+
+# Sonidos
+Song					GameSong										Assets\Sounds\gameMusic.mp3
+Effect				LaserSound									Assets\Sounds\laserFire.wav
+Effect				ExplosionSound							Assets\Sounds\explosion.wav
+
+#SpriteSheet de la imagen PaddleImage
+SpriteSheet			Paddle			PaddleImage
+	Sheet					Bricks
+		Rectangle			0 1 47 24
+		Rectangle			48 1 47 24
+		Rectangle			96 1 47 24
+		Rectangle			144 1 47 24
+		Rectangle			192 1 47 24
+		Rectangle			240 1 47 24
+		Rectangle			288 1 47 24
+		Rectangle			336 1 47 24
+		Rectangle			384 1 47 24
+	Sheet					Paddle
+		Rectangle			0 26 66 21
+		Rectangle			0 48 66 21
+		Rectangle			0 70 66 21
+		Rectangle			0 93 83 21
+		Rectangle			0 115 83 21
+		Rectangle			0 137 83 21
+		Rectangle			0 159 53 21
+		Rectangle			0 181 53 21
+		Rectangle			0 203 53 21
+		Rectangle			57 159 63 27
+		Rectangle			57 188 63 27
+		Rectangle			57 217 63 27
+		Rectangle			129 167 43 11
+		Rectangle			129 183 43 11
+		Rectangle			192 200 43 11
+		Animation			Normal	30		0 1 2 1
+		Animation			Large		30		3 4 5 4
+		Animation			Small		30		6 7 8 7
+		Animation			Fire		30		9 10 11 10
+		Animation			Died		30		12 13 14
+	Sheet					Ball
+		Rectangle			72 27 10 9
+	Sheet					Pill0
+		Rectangle			85 30 23 11
+		Rectangle			85 45 23 11
+		Rectangle			85 60 23 11
+		Rectangle			85 75 23 11
+		Rectangle			85 90 23 11
+		Rectangle			85 105 23 11
+		Animation			Default	30
+	Sheet					Pill1
+		Rectangle			110 30 23 11
+		Rectangle			110 45 23 11
+		Rectangle			110 60 23 11
+		Rectangle			110 75 23 11
+		Rectangle			110 90 23 11
+		Rectangle			110 105 23 11
+		Animation			Default	30
+	Sheet					Pill2
+		Rectangle			135 30 23 11
+		Rectangle			135 45 23 11
+		Rectangle			135 60 23 11
+		Rectangle			135 75 23 11
+		Rectangle			135 90 23 11
+		Rectangle			135 105 23 11
+		Animation			Default	30
+	Sheet					Pill3
+		Rectangle			160 30 23 11
+		Rectangle			160 45 23 11
+		Rectangle			160 60 23 11
+		Rectangle			160 75 23 11
+		Rectangle			160 90 23 11
+		Rectangle			160 105 23 11
+		Animation			Default	30
+	Sheet					PillNewBalls
+		Rectangle			185 30 23 11
+		Rectangle			185 45 23 11
+		Rectangle			185 60 23 11
+		Rectangle			185 75 23 11
+		Rectangle			185 90 23 11
+		Rectangle			185 105 23 11
+		Animation			Default	30
+	Sheet					PillBomb
+		Rectangle			260 30 15 11
+		Rectangle			261 44 12 11
+		Rectangle			262 57 11 15
+		Rectangle			262 74 12 11
+		Rectangle			260 88 15 11
+		Rectangle			264 100 11 12
+		Rectangle			264 113 11 14
+		Rectangle			264 130 12 11
+		Animation			Default	30
+	Sheet					Explosion
+		Rectangle			84 142 9 9
+		Rectangle			94 140 13 13
+		Rectangle			109 138 17 16
+		Rectangle			127 137 21 18
+		Rectangle			149 134 23 22
+		Rectangle			173 133 25 25
+		Rectangle			199 134 28 25
+		Animation			Default	30
+	Sheet					Laser
+		Rectangle		73 38  5 11
+	Sheet					Particles
+		Rectangle			285 32 12 12
+		Rectangle			297 32 12 12
+		Rectangle			309 32 11 11
+		Rectangle			320 32 11 10

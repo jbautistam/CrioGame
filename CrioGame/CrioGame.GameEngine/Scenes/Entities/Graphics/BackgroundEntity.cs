@@ -46,8 +46,8 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		}
 
 		/// <summary>
-		///		Vista a la que se asocia la entidad
+		///		Vista
 		/// </summary>
-		public IView View { get; }
+		private IView View { get; }
 	}
 }

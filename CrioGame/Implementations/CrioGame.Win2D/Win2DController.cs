@@ -43,13 +43,7 @@ namespace Bau.Libraries.CrioGame.Win2D
 		///		Detiene el juego
 		/// </summary>
 		public void Stop()
-		{ // Cierra el juego
-				Game.Exit();
-			// Elimina las referencias para que los controles de Win2D pasen por el Garbage Collector
-				if (Canvas != null)
-					{ Canvas.RemoveFromVisualTree();
-						Canvas = null;
-					}
+		{ Game.Exit();
 		}
 
 		/// <summary>

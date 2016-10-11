@@ -12,9 +12,9 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 	/// </summary>
 	public abstract class AbstractActorModel : Common.Models.AbstractModelBase
 	{
-		public AbstractActorModel(IView objView, TimeSpan tsBetweenUpdate, GameObjectDimensions objDimensions)
+		public AbstractActorModel(IScene objScene, TimeSpan tsBetweenUpdate, GameObjectDimensions objDimensions)
 						: base(tsBetweenUpdate)
-		{ View = objView;
+		{ Scene = objScene;
 			Dimensions = objDimensions;
 		}
 
@@ -137,14 +137,14 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		/// <summary>
 		///		Dibuja el actor
 		/// </summary>
-		public virtual void Draw(IGameContext objContext)
-		{ Sprites.Draw(objContext, View.ViewPortScreen);
+		public virtual void Draw(IGameContext objContext, Rectangle rctRectangle)
+		{ Sprites.Draw(objContext, rctRectangle);
 		}
 
 		/// <summary>
-		///		Vista a la que se asocia el actor
+		///		Escena a la que se asocia el actor
 		/// </summary>
-		protected IView View { get; }
+		public IScene Scene { get; }
 
 		/// <summary>
 		///		Dimensiones del objeto en el juego

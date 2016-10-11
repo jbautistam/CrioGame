@@ -50,5 +50,10 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Particles
 		///		Manejador del movimiento
 		/// </summary>
 		private Components.Physics.Movements.AbstractMovementComponent Movement { get; }
+
+		/// <summary>
+		///		Indica si la partícula está activa
+		/// </summary>
+		public bool Active { get; set; }
 	}
 }

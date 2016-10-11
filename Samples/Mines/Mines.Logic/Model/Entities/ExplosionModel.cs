@@ -13,9 +13,9 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 	{ // Variables privadas
 			private int intUpdates = 0;
 
-		public ExplosionModel(IView objView, float fltX, float fltY, Vector2D vctVelocity, TimeSpan tsBetweenUpdate) 
+		public ExplosionModel(IScene objScene, float fltX, float fltY, Vector2D vctVelocity, TimeSpan tsBetweenUpdate) 
 							: base(null, "Explosion", "Default", "Default", "ExplosionImage", tsBetweenUpdate, (int) fltX, (int) fltY)
-		{ View = objView;
+		{ Scene = objScene;
 			Velocity = vctVelocity;
 		}
 
@@ -31,23 +31,23 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 		/// </summary>
 		public override void Update(IGameContext objContext)
 		{ // Modifica las coordenadas y el estado del objeto
-				if (X + Velocity.X < 0 || intUpdates++ >= Frames)
-					Active = false;
+				if (X + Velocity.X <= 0 || intUpdates++ >= Frames)
+					Scene.Map.RemoveGameEntity(this);
 				else
 					{ // Controla los movimientos
 							X += (int) Velocity.X;
 							Y += (int) Velocity.Y;
-							X = (int) objContext.MathHelper.ClampScreenWidth(X, ScaledWidth, View);
-							Y = (int) objContext.MathHelper.ClampScreenHeight(Y, ScaledHeight, View);
+							X = (int) objContext.MathHelper.ClampScreenWidth(X, ScaledWidth, Scene.ViewDefault);
+							Y = (int) objContext.MathHelper.ClampScreenHeight(Y, ScaledHeight, Scene.ViewDefault);
 					}
 			// Llama al método base
 				base.Update(objContext);
 		}
 
 		/// <summary>
-		///		Vista
+		///		Escena
 		/// </summary>
-		public IView View { get; }
+		public IScene Scene { get; }
 
 		/// <summary>
 		///		Velocidad en horizontal

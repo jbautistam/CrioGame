@@ -43,6 +43,7 @@
     <Compile Include="Interfaces\GameEngine\IGameContext.cs" />
     <Compile Include="Interfaces\GameEngine\IGameEventsController.cs" />
     <Compile Include="Interfaces\GameEngine\IGameLoopController.cs" />
+    <Compile Include="Interfaces\GameEngine\IMap.cs" />
     <Compile Include="Interfaces\GameEngine\IScene.cs" />
     <Compile Include="Interfaces\GameEngine\ISceneController.cs" />
     <Compile Include="Interfaces\GameEngine\IView.cs" />
@@ -68,7 +69,6 @@
     <Compile Include="Models\Graphics\AbstractImageModelBase.cs" />
     <Compile Include="Models\Graphics\AbstractTextModel.cs" />
     <Compile Include="Models\Messages\AbstractMessageModel.cs" />
-    <Compile Include="Models\ModelsCollection.cs" />
     <Compile Include="Models\Resources\ResourceAnimationModel.cs" />
     <Compile Include="Models\Resources\ResourceModel.cs" />
     <Compile Include="Models\Resources\ResourceSheetModel.cs" />
@@ -79,6 +79,7 @@
     <Compile Include="Models\Structs\Rectangle.cs" />
     <Compile Include="Models\Structs\Size2D.cs" />
     <Compile Include="Models\Structs\Vector2D.cs" />
+    <Compile Include="Models\Structs\ViewLayerModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AbstractRepository.cs" />
     <Compile Include="Repository\ResourcesRepository.cs" />

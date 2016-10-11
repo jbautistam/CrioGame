@@ -97,5 +97,10 @@ namespace Bau.Libraries.CrioGame.Common.Models.Graphics
 		///		Orden de dibujo
 		/// </summary>
 		public int ZOrder { get; set; }
+
+		/// <summary>
+		///		Indica si el elemento está activo
+		/// </summary>
+		public bool Active { get; set; } = true;
 	}
 }

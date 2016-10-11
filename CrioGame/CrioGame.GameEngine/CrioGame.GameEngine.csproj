@@ -42,7 +42,7 @@
     <Compile Include="Engine\GameRepository.cs" />
     <Compile Include="Engine\SceneController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scenes\AbstractEngineSceneModel.cs" />
+    <Compile Include="Scenes\AbstractSceneModel.cs" />
     <Compile Include="Scenes\Components\AbstractComponent.cs" />
     <Compile Include="Scenes\Components\Physics\CollisionTargets.cs" />
     <Compile Include="Scenes\Components\Physics\Movements\AbstractMovementBase.cs" />
@@ -67,9 +67,11 @@
     <Compile Include="Scenes\Entities\UserInterface\CheckBoxControl.cs" />
     <Compile Include="Scenes\Entities\UserInterface\MenuControl.cs" />
     <Compile Include="Scenes\Entities\UserInterface\ProgressBarControl.cs" />
-    <Compile Include="Scenes\Layers\LayerEntitiesCollection.cs" />
+    <Compile Include="Scenes\Layers\MapEntitiesCollection.cs" />
     <Compile Include="Scenes\Layers\LayerModel.cs" />
     <Compile Include="Scenes\Layers\LayerModelCollection.cs" />
+    <Compile Include="Scenes\Layers\MapEntityModel.cs" />
+    <Compile Include="Scenes\Layers\MapModel.cs" />
     <Compile Include="Scenes\Layers\ViewModel.cs" />
     <Compile Include="Scenes\Layers\ViewModelCollection.cs" />
     <Compile Include="Scenes\NullSceneModel.cs" />

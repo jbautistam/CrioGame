@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>87121bb8-c648-4fb0-bcfc-31435fc9b636</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Bau.Libraries.ArkanoidGame.Logic</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Configuration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Messages\InformationMessage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\BallModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\BrickModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\ExplosionModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\GameUserInterfaceModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\LaserModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\Movements\MovementVelocity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\PaddleModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\ParticleEmitter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\PillModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\ScoresModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Scenes\GameOverScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Scenes\GameScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Scenes\MainMenuScene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Model\Scenes\MainNextLevel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Parameters\GameConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Parameters\GameParameters.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repository\ILevelsRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repository\LevelsRepository.cs" />
+  </ItemGroup>
+</Project>

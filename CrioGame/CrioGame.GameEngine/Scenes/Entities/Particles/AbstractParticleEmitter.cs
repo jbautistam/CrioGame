@@ -11,9 +11,9 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Particles
 	/// </summary>
 	public abstract class AbstractParticleEmitter : Graphics.AbstractActorModel
 	{
-		public AbstractParticleEmitter(IView objView, TimeSpan tsLifeTime, TimeSpan tsBetweenUpdate, 
+		public AbstractParticleEmitter(IScene objScene, TimeSpan tsLifeTime, TimeSpan tsBetweenUpdate, 
 																	 GameObjectDimensions objDimensions) 
-								: base(objView, tsBetweenUpdate, objDimensions)
+								: base(objScene, tsBetweenUpdate, objDimensions)
 		{ LifeTime = tsLifeTime;
 		}
 
@@ -39,7 +39,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Particles
 					Active = false;
 				else
 					{ // Crea una nueva partícula si es necesario
-							if (Particles.CountEnabled < Minimum)
+							if (Particles.Count < Minimum)
 								CreateParticle(objContext);
 						// Mueve las partículas
 							for (int intIndex = 0; intIndex < Particles.Count; intIndex++)
@@ -49,8 +49,9 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Particles
 										// Actualiza la partícula
 											Particles[intIndex].Update(objContext);
 										// Desactiva la partícula si está fuera de la vista
-											Particles[intIndex].Active = Dimensions.HasPoint(Particles[intIndex].Dimensions.Position.X + Dimensions.Position.X,
-																																			 Particles[intIndex].Dimensions.Position.Y + Dimensions.Position.Y);
+											if (!Dimensions.HasPoint(Particles[intIndex].Dimensions.Position.X + Dimensions.Position.X,
+																							 Particles[intIndex].Dimensions.Position.Y + Dimensions.Position.Y))
+												Particles.RemoveEntity(intIndex);
 									}
 					}
 		}
@@ -63,14 +64,14 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Particles
 		/// <summary>
 		///		Dibuja las partículas
 		/// </summary>
-		public override void Draw(IGameContext objContext)
+		public override void Draw(IGameContext objContext, Rectangle rctCamera)
 		{ for (int intIndex = 0; intIndex < Particles.Count; intIndex++)
 				if (Particles[intIndex].Active)
 					{ // Cambia las posiciones del sprite
 							(Sprites[0] as Graphics.SpriteModel).DeltaX = (int) Particles[intIndex].Dimensions.Position.X;
 							(Sprites[0] as Graphics.SpriteModel).DeltaY = (int) Particles[intIndex].Dimensions.Position.Y;
 						// Dibuja el sprite
-							Sprites[0].Draw(objContext, View.ViewPortScreen);
+							Sprites[0].Draw(objContext, rctCamera);
 					}
 		}
 
@@ -108,5 +109,10 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Particles
 		///		Tiempo de vida máximo
 		/// </summary>
 		public int MaximumTimeLife { get; set; } = 60;
+
+		/// <summary>
+		///		Indica si el emiosr está activo
+		/// </summary>
+		public bool Active { get; set; }
 	}
 }

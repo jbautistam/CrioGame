@@ -11,23 +11,24 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 	/// </summary>
 	public class UserInterfaceModel : AbstractActorModel
 	{
-		public UserInterfaceModel(IView objView, ScoresModel objScores, TimeSpan tsBetweenUpdate) 
-							: base(objView, tsBetweenUpdate, new Bau.Libraries.CrioGame.Common.Models.Structs.GameObjectDimensions(0, 0))
-		{ Scores = objScores;
+		public UserInterfaceModel(IScene objScene, int intScore, int intLifes, TimeSpan tsBetweenUpdate) 
+							: base(objScene, tsBetweenUpdate, new CrioGame.Common.Models.Structs.GameObjectDimensions(0, 0))
+		{ Score = intScore;
+			Lifes = intLifes;
 		}
 
 		/// <summary>
 		///		Inicializa los datos del actor
 		/// </summary>
 		public override void InitializeActor(IGameContext objContext)
-		{ int intLeftLabel = (int) View.ViewPortScreen.Width - 200;
+		{ int intLeftLabel = (int) Scene.ViewDefault.ViewPortScreen.Width - 200;
 
 				// Añade los textos fijos
 					base.AddText("Font", "Puntos", 10, 10);
 					base.AddText("Font", "Vidas", intLeftLabel, 10);
 				// Añade las etiquetas de los textos variables
-					ScoreLabel = base.AddText("Font", Scores.Score.ToString(), 70, 12);
-					LifesLabel = base.AddText("Font", Scores.Lifes.ToString(), intLeftLabel + 60, 12);
+					ScoreLabel = base.AddText("Font", Score.ToString(), 70, 12);
+					LifesLabel = base.AddText("Font", Lifes.ToString(), intLeftLabel + 60, 12);
 		}
 
 		/// <summary>
@@ -39,19 +40,19 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 			// Actualiza la puntuación
 				UpdateScores(objContext);
 			// Cambia las etiquetas
-				LifesLabel.Text = Scores.Lifes.ToString();
-				ScoreLabel.Text = Scores.Score.ToString();
+				LifesLabel.Text = Lifes.ToString();
+				ScoreLabel.Text = Score.ToString();
 		}
 
 		/// <summary>
 		///		Modifica los parámeros de sonido
 		/// </summary>
 		private void UpdateSounds(IGameContext objContext)
-		{	if (objContext.GameController.MainManager.GraphicsEngine.InputManager.ChangedPressedKey(Bau.Libraries.CrioGame.Common.Enums.Keys.Escape))
+		{	if (objContext.GameController.MainManager.GraphicsEngine.InputManager.ChangedPressedKey(CrioGame.Common.Enums.Keys.Escape))
 				objContext.GameController.MainManager.Stop();
-			if (objContext.GameController.MainManager.GraphicsEngine.InputManager.ChangedPressedKey(Bau.Libraries.CrioGame.Common.Enums.Keys.F9))
+			if (objContext.GameController.MainManager.GraphicsEngine.InputManager.ChangedPressedKey(CrioGame.Common.Enums.Keys.F9))
 				objContext.GameController.MainManager.GameParameters.Configuration.PlayEffects = !objContext.GameController.MainManager.GameParameters.Configuration.PlayEffects;
-			if (objContext.GameController.MainManager.GraphicsEngine.InputManager.ChangedPressedKey(Bau.Libraries.CrioGame.Common.Enums.Keys.F8))
+			if (objContext.GameController.MainManager.GraphicsEngine.InputManager.ChangedPressedKey(CrioGame.Common.Enums.Keys.F8))
 				{ // Cambia el parámetro
 						objContext.GameController.MainManager.GameParameters.Configuration.PlayMusic = !objContext.GameController.MainManager.GameParameters.Configuration.PlayMusic;
 					// Toca o detiene la música
@@ -70,13 +71,18 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 
 				// Asigna la puntuación
 					foreach (Messages.EnemyKillMessage objKillMessage in objColKillMessages)
-						Scores.Score += objKillMessage.Score;
+						Score += objKillMessage.Score;
 		}
 
 		/// <summary>
-		///		Panel de puntuaciones
+		///		Puntuación
 		/// </summary>
-		private ScoresModel Scores { get; }
+		internal int Score { get; set; } = 0;
+
+		/// <summary>
+		///		Número de vidas
+		/// </summary>
+		internal int Lifes { get; set; } = 2;
 
 		/// <summary>
 		///		Etiqueta con el número de vidas

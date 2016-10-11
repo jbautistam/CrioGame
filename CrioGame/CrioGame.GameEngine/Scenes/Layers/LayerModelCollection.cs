@@ -23,5 +23,10 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Layers
 				// Devuelve la capa
 					return objLayer;
 		}
+
+		internal bool MustEvaluateCollisions(string layerKey)
+		{
+			throw new NotImplementedException();
+		}
 	}
 }

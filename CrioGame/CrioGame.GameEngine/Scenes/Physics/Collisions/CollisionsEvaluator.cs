@@ -4,36 +4,37 @@ using System.Collections.Generic;
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics;
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Layers;
 
 namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Physics.Collisions
 {
 	/// <summary>
-	///		Resultado de las colisiones
+	///		Evaluador de colisiones
 	/// </summary>
 	internal class CollisionsEvaluator
 	{
 		/// <summary>
-		///		Evalúa las colisiones
+		///		Evalúa las colisiciones entre objetos
 		/// </summary>
-		internal void Evaluate(IView objView, Layers.LayerModelCollection objColLayers, IGameContext objContext)
+		internal void Evaluate(IGameContext objContext, MapEntitiesCollection objColMapEntites)
 		{ List<CollisionTargets> objColEntities = new List<CollisionTargets>();
 		
 				// Obtiene las entidades que pueden colisionar
-					for (int intLayer = 0; intLayer < objColLayers.Count; intLayer++)
-						if (objColLayers[intLayer].MustEvaluateCollisions)
-							for (int intEntity = 0; intEntity < objColLayers[intLayer].Entities.Count; intEntity++)
-								if (objColLayers[intLayer].Entities[intEntity].Active && 
-										objColLayers[intLayer].Entities[intEntity] is AbstractActorModel)
-									{ AbstractActorModel objSprite = objColLayers[intLayer].Entities[intEntity] as AbstractActorModel;
+					for (int intEntity = 0; intEntity < objColMapEntites.Count; intEntity++)
+						if (// objColMapEntites[intEntity].IsActive &&
+								objColMapEntites[intEntity].IsInitialized &&
+								objColMapEntites[intEntity].Entity is AbstractActorModel &&
+								objColMapEntites[intEntity].IsAtLayerEvaluateCollisions)
+							{ AbstractActorModel objActor = objColMapEntites[intEntity].Entity as AbstractActorModel;
 
-											// Si realmente tiene un componente para evaluar las colisiones
-												if (objSprite.CollisionEvaluator != null)
-													{ // Actualiza el evaluador de colisiones
-															objSprite.CollisionEvaluator.Update(objContext, objView);
-														// Añade el sprite a la colección de entidades
-															objColEntities.Add(objSprite.CollisionEvaluator);
-													}
-									}
+									// Si realmente tiene un componente para evaluar las colisiones
+										if (objActor.CollisionEvaluator != null)
+											{ // Actualiza el evaluador de colisiones
+													objActor.CollisionEvaluator.Update(objContext, null);
+												// Añade el sprite a la colección de entidades
+													objColEntities.Add(objActor.CollisionEvaluator);
+											}
+							}
 				// Comprueba las colisiones
 					for (int intSource = 0; intSource < objColEntities.Count; intSource++)
 						for (int intTarget = intSource + 1; intTarget < objColEntities.Count; intTarget++)

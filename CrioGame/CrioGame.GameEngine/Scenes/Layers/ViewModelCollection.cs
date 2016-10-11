@@ -50,21 +50,5 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Layers
 		{ for (int intIndex = 0; intIndex < Count; intIndex++)
 				this[intIndex].Initialize(objContext);
 		}
-
-		/// <summary>
-		///		Actualiza los datos de las vistas
-		/// </summary>
-		internal void Update(IGameContext objContext)
-		{ for (int intIndex = 0; intIndex < Count; intIndex++)
-				this[intIndex].Update(objContext);
-		}
-
-		/// <summary>
-		///		Dibuja los datos de las vistas
-		/// </summary>
-		internal void Draw(IGameContext objContext)
-		{ for (int intIndex = 0; intIndex < Count; intIndex++)
-				this[intIndex].Draw(objContext);
-		}
 	}
 }

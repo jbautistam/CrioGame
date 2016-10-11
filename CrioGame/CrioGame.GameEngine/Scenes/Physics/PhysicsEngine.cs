@@ -1,6 +1,7 @@
 ﻿using System;
 
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Layers;
 
 namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Physics
 {
@@ -12,8 +13,8 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Physics
 		/// <summary>
 		///		Evalúa los diferentes controladores de físicas
 		/// </summary>
-		internal void Evaluate(IView objView, Layers.LayerModelCollection objColLayers, IGameContext objContext)
-		{ CollisionsEngine.Evaluate(objView, objColLayers, objContext);
+		internal void Evaluate(IGameContext objContext, MapEntitiesCollection objColMapEntites)
+		{ CollisionsEngine.Evaluate(objContext, objColMapEntites);
 		}
 
 		/// <summary>

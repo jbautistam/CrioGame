@@ -16,7 +16,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\LaserModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\MineModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\PlayerModel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\ScoresModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Entities\UserInterfaceModel.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Model\Scenes\GameScene.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Parameters\GameConfiguration.cs" />

@@ -7,44 +7,46 @@ namespace Bau.Libraries.CrioGame.Common.Models.Collections
 	/// <summary>
 	///		Colección de entidades: trata las claves, recicla los elementos...
 	/// </summary>
-	public class ObjectPool<TypeData> where TypeData : AbstractModelBase
+	public class ObjectPool<TypeData> where TypeData : class
 	{ // Variables privadas
 			private TimeSpan tsLastRecover = TimeSpan.Zero;
+			private int intLastActive = 0;
 
 		/// <summary>
 		///		Añade una entidad a la colección
 		/// </summary>
 		public void Add(TypeData objEntity)
-		{ bool blnAdded = false;
-
-				// Busca un elemento inactivo donde asociar la entidad
-					for (int intIndex = 0; intIndex < Entities.Count && !blnAdded; intIndex++)
-						if (!Entities[intIndex].Active)
-							{ // Cambia la entidad
-									Entities[intIndex] = objEntity;
-								// Indica que se ha añadido
-									blnAdded = true;
-							}
-				// Añade la entidad
-					if (!blnAdded)
-						Entities.Add(objEntity);
+		{ // Busca un elemento inactivo donde asociar la entidad
+				if (Entities.Count <= intLastActive)
+					Entities.Insert(intLastActive, objEntity);
+				else
+					this[intLastActive] = objEntity;
+			// Incrementa el índice de los elementos activos
+				intLastActive++;
 		}
 
 		/// <summary>
-		///		Ordena las entidades
+		///		Elimina una entidad
 		/// </summary>
-		protected void Sort(Func<TypeData, TypeData, int> fncSort)
-		{ Entities.Sort((objFirst, objSecond) => fncSort(objFirst, objSecond));
+		public void RemoveEntity(int intIndex)
+		{ if (intLastActive > 0)
+				this[intIndex] = this[--intLastActive];
 		}
+
+		///// <summary>
+		/////		Ordena las entidades
+		///// </summary>
+		//protected void Sort(Func<TypeData, TypeData, int> fncSort)
+		//{ Entities.Sort((objFirst, objSecond) => fncSort(objFirst, objSecond));
+		//}
 
 		/// <summary>
 		///		Recupera la memoria
 		/// </summary>
 		protected void RecoverMemory(IGameContext objContext)
 		{ if (objContext.MathHelper.IsElapsed(objContext.ActualTime, TimeRecoverMemory, ref tsLastRecover))
-				for (int intIndex = Entities.Count - 1; intIndex >= 0; intIndex--)
-					if (!Entities[intIndex].Active)
-						Entities.RemoveAt(intIndex);
+				for (int intIndex = Entities.Count - 1; intIndex > intLastActive; intIndex--)
+					Entities.RemoveAt(intIndex);
 		}
 
 		/// <summary>
@@ -59,29 +61,14 @@ namespace Bau.Libraries.CrioGame.Common.Models.Collections
 		/// </summary>
 		public TypeData this[int intIndex]
 		{ get { return Entities[intIndex]; }
-		}
-
-		/// <summary>
-		///		Cuenta el número de elementos activos
-		/// </summary>
-		public int CountEnabled
-		{ get 
-				{ int intCount = 0;
-
-						// Obtiene el número de elementos activos
-							for (int intIndex = 0; intIndex < Entities.Count; intIndex++)
-								if (Entities[intIndex].Active)
-									intCount++;
-						// Devuelve el número de elementos
-							return intCount;
-				}
+			private set { Entities[intIndex] = value; }
 		}
 
 		/// <summary>
 		///		Cuenta el número de elementos
 		/// </summary>
 		public int Count 
-		{ get { return Entities.Count; } 
+		{ get { return intLastActive; } 
 		}
 
 		/// <summary>

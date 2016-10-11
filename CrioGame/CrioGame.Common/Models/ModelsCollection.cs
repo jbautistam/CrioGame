@@ -30,7 +30,7 @@ namespace Bau.Libraries.CrioGame.Common.Models
 		/// </summary>
 		public void Update(IGameContext objContext)
 		{ for (int intIndex = 0; intIndex < Items.Count; intIndex++)
-				if (Items[intIndex].Active)
+				//if (Items[intIndex].Active)
 					Items[intIndex].Update(objContext);
 		}
 
@@ -39,7 +39,7 @@ namespace Bau.Libraries.CrioGame.Common.Models
 		/// </summary>
 		protected virtual void Draw(IGameContext objContext)
 		{ for (int intIndex = 0; intIndex < Items.Count; intIndex++)
-				if (Items[intIndex].Active)
+				//if (Items[intIndex].Active)
 					(Items[intIndex] as Graphics.AbstractImageModelBase)?.Draw(objContext);
 		}
 

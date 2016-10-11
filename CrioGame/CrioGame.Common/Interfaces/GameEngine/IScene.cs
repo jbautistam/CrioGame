@@ -38,5 +38,10 @@ namespace Bau.Libraries.CrioGame.Common.Interfaces.GameEngine
 		///		Vista predeterminada
 		/// </summary>
 		IView ViewDefault { get; }
+
+		/// <summary>
+		///		Mapa de la escena
+		/// </summary>
+		IMap Map { get; }
 	}
 }

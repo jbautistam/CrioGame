@@ -15,7 +15,7 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 			private int intSpeed = 8;
 			private TimeSpan tsFireSpawnTime, tsPreviousFireTime;
 
-		public PlayerModel(IView objView, GameObjectDimensions objDimensions) : base(objView, TimeSpan.Zero, objDimensions)
+		public PlayerModel(IScene objScene, GameObjectDimensions objDimensions) : base(objScene, TimeSpan.Zero, objDimensions)
 		{ CollisionEvaluator = new CollisionTargets(this, 
 																								(int) Configuration.GroupGameObjects.Player, 
 																								(int) Configuration.GroupGameObjects.Enemy);
@@ -31,7 +31,7 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 			// Añade la animación
 				AddAnimation("Player", "Default", "Default", "PlayerImage", 0, 0);
 			// Coloca la imagen
-				Dimensions.Position = new Rectangle(0, View.ViewPortScreen.Height / 2, 
+				Dimensions.Position = new Rectangle(0, Scene.ViewDefault.ViewPortScreen.Height / 2, 
 																						Dimensions.Position.Width, Dimensions.Position.Height);
 		}
 
@@ -41,36 +41,36 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 		public override void UpdateActor(IGameContext objContext)
 		{ float fltNewX = Dimensions.Position.X, fltNewY = Dimensions.Position.Y;
 
-			// Controla los movimientos con el teclado
-				if (objContext.GameController.MainManager.GraphicsEngine.InputManager.IsPressedKey(Bau.Libraries.CrioGame.Common.Enums.Keys.Up))
-					fltNewY -= intSpeed;
-				if (objContext.GameController.MainManager.GraphicsEngine.InputManager.IsPressedKey(Bau.Libraries.CrioGame.Common.Enums.Keys.Down))
-					fltNewY += intSpeed;
-				if (objContext.GameController.MainManager.GraphicsEngine.InputManager.IsPressedKey(Bau.Libraries.CrioGame.Common.Enums.Keys.Right))
-					fltNewX += intSpeed;
-				if (objContext.GameController.MainManager.GraphicsEngine.InputManager.IsPressedKey(Bau.Libraries.CrioGame.Common.Enums.Keys.Left))
-					fltNewX -= intSpeed;
-			// Normaliza las coordenadas
-				Dimensions.MoveTo(fltNewX, fltNewY);
-				Dimensions.ClampToView(View.ViewPortScreen.Width, View.ViewPortScreen.Height);
-			// Controla el disparo
-				if (objContext.GameController.MainManager.GraphicsEngine.InputManager.IsPressedKey(Bau.Libraries.CrioGame.Common.Enums.Keys.Space) &&
-						objContext.MathHelper.IsElapsed(objContext.ActualTime, tsFireSpawnTime, ref tsPreviousFireTime))
-					{	// Guarda el momento del disparo
-							tsPreviousFireTime = objContext.ActualTime;
-						// Sonido para el láser
-							objContext.GameController.MainManager.GraphicsEngine.SoundController.Play(Configuration.LaserSound);
-						// Crea el láser
-							View.AddEntity(Configuration.LayerGame, 
-														 new LaserModel(View, 
-																						(int) Configuration.GroupGameObjects.Player,
-																						(int) Configuration.GroupGameObjects.Enemy,
-																						new GameObjectDimensions(objContext.MathHelper.Clamp(Dimensions.Position.X + Dimensions.ScaledDimensions.Width, 0, 
-																																																 View.ViewPortScreen.Width),
-																																		 objContext.MathHelper.Clamp(Dimensions.Position.Y + Dimensions.ScaledDimensions.Height / 2, 0, 
-																																																 View.ViewPortScreen.Height)),
-																						new Vector2D(30, 0), "Laser", Configuration.TimeSpanPlayerLaserUpdate));
-					}
+				// Controla los movimientos con el teclado
+					if (objContext.GameController.MainManager.GraphicsEngine.InputManager.IsPressedKey(CrioGame.Common.Enums.Keys.Up))
+						fltNewY -= intSpeed;
+					if (objContext.GameController.MainManager.GraphicsEngine.InputManager.IsPressedKey(CrioGame.Common.Enums.Keys.Down))
+						fltNewY += intSpeed;
+					if (objContext.GameController.MainManager.GraphicsEngine.InputManager.IsPressedKey(CrioGame.Common.Enums.Keys.Right))
+						fltNewX += intSpeed;
+					if (objContext.GameController.MainManager.GraphicsEngine.InputManager.IsPressedKey(CrioGame.Common.Enums.Keys.Left))
+						fltNewX -= intSpeed;
+				// Normaliza las coordenadas
+					Dimensions.MoveTo(fltNewX, fltNewY);
+					Dimensions.ClampToView(Scene.ViewDefault.ViewPortScreen.Width, Scene.ViewDefault.ViewPortScreen.Height);
+				// Controla el disparo
+					if (objContext.GameController.MainManager.GraphicsEngine.InputManager.IsPressedKey(CrioGame.Common.Enums.Keys.Space) &&
+							objContext.MathHelper.IsElapsed(objContext.ActualTime, tsFireSpawnTime, ref tsPreviousFireTime))
+						{	// Guarda el momento del disparo
+								tsPreviousFireTime = objContext.ActualTime;
+							// Sonido para el láser
+								objContext.GameController.MainManager.GraphicsEngine.SoundController.Play(Configuration.LaserSound);
+							// Crea el láser
+								Scene.Map.AddGameEntity(Scene.ViewDefault, Configuration.LayerGame, 
+																				new LaserModel(Scene, 
+																											 (int) Configuration.GroupGameObjects.Player,
+																											 (int) Configuration.GroupGameObjects.Enemy,
+																											 new GameObjectDimensions(objContext.MathHelper.Clamp(Dimensions.Position.X + Dimensions.ScaledDimensions.Width, 0, 
+																																																						Scene.ViewDefault.ViewPortScreen.Width),
+																																								 objContext.MathHelper.Clamp(Dimensions.Position.Y + Dimensions.ScaledDimensions.Height / 2, 0, 
+																																																						 Scene.ViewDefault.ViewPortScreen.Height)),
+																												new Vector2D(30, 0), "Laser", Configuration.TimeSpanPlayerLaserUpdate));
+						}
 		}
 	}
 }

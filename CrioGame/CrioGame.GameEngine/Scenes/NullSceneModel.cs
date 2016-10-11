@@ -59,6 +59,11 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes
 		public IView ViewDefault { get; } = new Layers.ViewModel("Default", new CameraView(new Rectangle(0, 0, 0, 0),
 																																											 new Rectangle(0, 0, 0, 0),
 																																											 new Rectangle(0, 0, 0, 0)),
-																														 0);											
+																														 0);
+
+		/// <summary>
+		///		Mapa de la escena
+		/// </summary>																 
+		public IMap Map { get; }									
 	}
 }

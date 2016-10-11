@@ -10,29 +10,28 @@ namespace Bau.Libraries.Mines.Logic.Model.Scenes
 	/// <summary>
 	///		Escena con un nivel del juego
 	/// </summary>
-	internal class GameScene : Bau.Libraries.CrioGame.GameEngine.Scenes.AbstractEngineSceneModel
+	internal class GameScene : CrioGame.GameEngine.Scenes.AbstractSceneModel
 	{
 		/// <summary>
 		///		Añade las entidades a la escena
 		/// </summary>
 		public override void LoadContentScene(IGameContext objContext)
-		{	ScoresModel objScore = new ScoresModel(0, 3);
-
-				// Añade un fondo fijo
-					ViewDefault.AddEntity(Layer.Background.ToString(), new BackgroundEntity(ViewDefault, "MainBackground", 0));
-				// Añade el fondo parallax
-					ViewDefault.AddEntity(Layer.Background.ToString(), 
-																new BackgroundParallaxEntity(ViewDefault, "Parallax1", Configuration.TimeSpanParallax,
-																														 -2, 0, 0, 1));
-					ViewDefault.AddEntity(Layer.Background.ToString(), 
-																new BackgroundParallaxEntity(ViewDefault, "Parallax2", Configuration.TimeSpanParallax,
-																														 -4, 0, 0, 2));
-				// Añade los textos
-					ViewDefault.AddEntity(Layer.UserInterface.ToString(), 
-																new UserInterfaceModel(ViewDefault, objScore, Configuration.TimeSpanUserInterface));
-				// Añade las entidades
-					ViewDefault.AddEntity(LayerGame, new PlayerModel(ViewDefault, new GameObjectDimensions(0, ViewDefault.ViewPortScreen.Height / 2)));
-					ViewDefault.AddEntity(LayerGame, new EnemySpawner(ViewDefault, Configuration.TimeSpawnMine));
+		{	// Añade un fondo fijo
+				Map.AddGameEntity(ViewDefault, Layer.Background.ToString(), new BackgroundEntity(ViewDefault, "MainBackground", 0));
+			// Añade el fondo parallax
+				Map.AddGameEntity(ViewDefault, Layer.Background.ToString(), 
+													new BackgroundParallaxEntity(ViewDefault, "Parallax1", Configuration.TimeSpanParallax,
+																												-2, 0, 0, 1));
+				Map.AddGameEntity(ViewDefault, Layer.Background.ToString(), 
+													new BackgroundParallaxEntity(ViewDefault, "Parallax2", Configuration.TimeSpanParallax,
+																												-4, 0, 0, 2));
+			// Añade los textos
+				Map.AddGameEntity(ViewDefault, Layer.UserInterface.ToString(), 
+													new UserInterfaceModel(this, 0, 3, Configuration.TimeSpanUserInterface));
+			// Añade las entidades
+				Map.AddGameEntity(ViewDefault, LayerGame, 
+													new PlayerModel(this, new GameObjectDimensions(0, ViewDefault.ViewPortScreen.Height / 2)));
+				Map.AddControlEntity(new EnemySpawner(this, Configuration.TimeSpawnMine));
 		}
 
 		/// <summary>

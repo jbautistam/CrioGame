@@ -13,11 +13,6 @@ namespace Bau.Libraries.CrioGame.Common.Interfaces.GameEngine
 		void CreateLayer(string strKey, bool blnEvaluateCollisions);
 
 		/// <summary>
-		///		Añade una entidad a una capa por su clave
-		/// </summary>
-		Models.AbstractModelBase AddEntity(string strLayerKey, Models.AbstractModelBase objEntity);
-
-		/// <summary>
 		///		Cámara utilizada en la vista
 		/// </summary>
 		Models.Structs.CameraView Camera { get; }

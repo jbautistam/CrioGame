@@ -12,8 +12,9 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities
 	{ // Variables privadas
 			private TimeSpan tsLastCreate = TimeSpan.Zero;
 
-		public AbstractEntitySpawner(TimeSpan tsSpawnTime, int intProbability = 100) : base(tsSpawnTime)
-		{ SpawnTime = tsSpawnTime;
+		public AbstractEntitySpawner(IScene objScene, TimeSpan tsSpawnTime, int intProbability = 100) : base(tsSpawnTime)
+		{ Scene = objScene;
+			SpawnTime = tsSpawnTime;
 			Probability = intProbability;
 		}
 
@@ -34,6 +35,11 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities
 		///		Crea una entidad
 		/// </summary>
 		protected abstract void Create(IGameContext objContext);
+
+		/// <summary>
+		///		Escena a la que pertenece
+		/// </summary>
+		protected IScene Scene { get; }
 
 		/// <summary>
 		///		Probabilidad de creación

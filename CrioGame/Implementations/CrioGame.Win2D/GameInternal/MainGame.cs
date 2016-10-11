@@ -1,5 +1,4 @@
 ﻿using System;
-using Windows.UI.Xaml;
 
 using Microsoft.Graphics.Canvas;
 using Microsoft.Graphics.Canvas.UI;
@@ -24,17 +23,6 @@ namespace Bau.Libraries.CrioGame.Win2D.GameInternal
 			// Inicializa el tiempo del juego
 				StartTime = new TimeSpan(DateTime.Now.Ticks);
 		}
-
-		///// <summary>
-		/////		Inicializa los datos propios del canvas
-		///// </summary>
-		//internal void InitCanvas(Window wndWindow, ICanvasAnimatedControl cnvCanvas, bool blnDesignMode = false)
-		//{	
-		//		Canvas = cnvCanvas;
-		//		MainWindow = wndWindow;
-		//	// Indica si estamos en modo de diseño
-		//		this.blnDesignMode = blnDesignMode;
-		//}
 
 		/// <summary>
 		///		Inicializa los datos
@@ -79,9 +67,6 @@ namespace Bau.Libraries.CrioGame.Win2D.GameInternal
 		private void CreateResources(ICanvasAnimatedControl cnvCanvas, CanvasCreateResourcesEventArgs objEventArgs)
 		{ // Comprueba si se permite utilizar SpriteBatch en el dispositivo
 				blnWithSpriteBatch = CanvasSpriteBatch.IsSupported(cnvCanvas.Device);
-			//// Carga las imágenes
-			//	if (!blnDesignMode && blnWithSpriteBatch)
-			//		objEventArgs.TrackAsyncAction(LoadImages(cnvCanvas.Device).AsAsyncAction());
 		}
 
 		/// <summary>
@@ -89,7 +74,6 @@ namespace Bau.Libraries.CrioGame.Win2D.GameInternal
 		/// </summary>
 		private void Update(ICanvasAnimatedControl objSender, CanvasAnimatedUpdateEventArgs objEventArgs)
 		{	GameLoopManager.Update(TotalGameTime);
-			System.Diagnostics.Debug.WriteLine("Update");
 		}
 
 		/// <summary>
@@ -99,9 +83,6 @@ namespace Bau.Libraries.CrioGame.Win2D.GameInternal
 		{	if (!blnDesignMode)
 				{	// Inicializa los datos de dibujo
 						SpriteBatch.InitDrawingSession(objEventArgs.DrawingSession);
-					//if (bmpTiger != null)
-					//	objEventArgs.DrawingSession.DrawImage(bmpTiger, intX, intY);
-					System.Diagnostics.Debug.WriteLine("Draw");
 					// Llama al manager para dibujar
 						GameLoopManager.Draw(TotalGameTime);
 				}

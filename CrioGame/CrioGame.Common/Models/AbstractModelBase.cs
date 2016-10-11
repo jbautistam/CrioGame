@@ -23,10 +23,10 @@ namespace Bau.Libraries.CrioGame.Common.Models
 		/// </summary>
 		public abstract void Update(IGameContext objContext);
 
-		/// <summary>
-		///		Indica si el elemento está activo
-		/// </summary>
-		public bool Active { get; set; } = true;
+		///// <summary>
+		/////		Indica si el elemento está activo
+		///// </summary>
+		//public bool Active { get; set; } = true;
 
 		/// <summary>
 		///		Tiempo entre modificaciones (TimeSpan.Zero: se modifica siempre)

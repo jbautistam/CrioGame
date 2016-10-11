@@ -11,8 +11,8 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 	/// </summary>
 	internal class EnemySpawner : AbstractEntitySpawner
 	{
-		public EnemySpawner(IView objView, TimeSpan tsSpawnTime, int intProbability = 75) : base(tsSpawnTime, intProbability) 
-		{ View = objView;
+		public EnemySpawner(IScene objScene, TimeSpan tsSpawnTime, int intProbability = 75) : base(objScene, tsSpawnTime, intProbability) 
+		{ 
 		}
 
 		/// <summary>
@@ -26,16 +26,13 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 		///		Crea una nueva entidad
 		/// </summary>
 		protected override void Create(IGameContext objContext)
-		{ View.AddEntity(Configuration.LayerGame, 
-										 new MineModel(View, 
-																	 new GameObjectDimensions(View.ViewPortScreen.Width, 
-																														objContext.MathHelper.Random((int) View.ViewPortScreen.Height)),
-																	 new Vector2D(-3, 0), Configuration.TimeSpanMineUpdate, Configuration.TimeSpanMineFire));
+		{ Scene.Map.AddGameEntity(Scene.ViewDefault, Configuration.LayerGame, 
+															new MineModel(Scene, 
+																						new GameObjectDimensions(Scene.ViewDefault.ViewPortScreen.Width, 
+																																		 objContext.MathHelper.Random((int) Scene.ViewDefault.ViewPortScreen.Height)),
+																						new Vector2D(-3, 0), 
+																						Configuration.TimeSpanMineUpdate, 
+																						Configuration.TimeSpanMineFire));
 		}
-
-		/// <summary>
-		///		Vista en la que se añaden los enemigos
-		/// </summary>
-		private IView View { get; }
 	}
 }

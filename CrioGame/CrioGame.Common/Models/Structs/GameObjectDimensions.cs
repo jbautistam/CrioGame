@@ -81,8 +81,7 @@ namespace Bau.Libraries.CrioGame.Common.Models.Structs
 		///		Desplaza el objeto
 		/// </summary>
 		public void Translate(float fltX, float fltY)
-		{	Position = new Rectangle(Position.X + fltX, Position.Y + fltY,
-															 Position.Width, Position.Height);
+		{	Position = new Rectangle(Position.X + fltX, Position.Y + fltY, Position.Width, Position.Height);
 		}
 
 		/// <summary>

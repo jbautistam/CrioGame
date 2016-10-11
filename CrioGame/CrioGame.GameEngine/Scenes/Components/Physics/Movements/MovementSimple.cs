@@ -18,8 +18,8 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Movements
 		///		Modifica las coordenadas
 		/// </summary>
 		public override void Update(IGameContext objContext, IView objView)
-		{ if (IsDisabled(objContext, objView, Parent.Dimensions.Position.X + Velocity.X, Parent.Dimensions.Position.Y + Velocity.Y))
-				Parent.Active = false;
+		{ if (IsDisabled(objContext, objView, Parent.Dimensions.Position.X + Velocity.X, Parent.Dimensions.Position.Y + Velocity.Y, false))
+				IsOutView = true;
 			else
 				Parent.Dimensions.Translate(Velocity);
 		}
@@ -27,6 +27,11 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Movements
 		/// <summary>
 		///		Comprueba si la nueva posición del elemento debe marcarle como inactivo
 		/// </summary>
-		public abstract bool IsDisabled(IGameContext objContext, IView objView, float fltNextX, float fltNextY);
+		public abstract bool IsDisabled(IGameContext objContext, IView objView, float fltNextX, float fltNextY, bool blnBorrarEsteParametroTesting);
+
+		/// <summary>
+		///		Indica si el movimiento está fuera de la vista
+		/// </summary>
+		public bool IsOutView { get; private set; }
 	}
 }

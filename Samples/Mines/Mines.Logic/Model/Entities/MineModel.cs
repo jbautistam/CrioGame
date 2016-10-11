@@ -15,9 +15,9 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 		// Variables privadas
 			private TimeSpan tsPreviousFireTime = TimeSpan.Zero;
 
-		public MineModel(IView objView, GameObjectDimensions objDimensions, Vector2D vctVelocity, 
+		public MineModel(IScene objScene, GameObjectDimensions objDimensions, Vector2D vctVelocity, 
 										 TimeSpan tsBetweenUpdate, TimeSpan tsFireSpawnTime) 
-							: base(objView, tsBetweenUpdate, objDimensions)
+							: base(objScene, tsBetweenUpdate, objDimensions)
 		{ FireSpawnTime = tsFireSpawnTime;
 			Velocity = vctVelocity;
 			CollisionEvaluator = new CollisionTargets(this, 
@@ -36,14 +36,14 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 		///		Modifica el estado del objeto
 		/// </summary>
 		public override void UpdateActor(IGameContext objContext)
-		{ if (Dimensions.Position.X + Velocity.X < 0)
-				Active = false;
+		{ if (Dimensions.Position.X + Velocity.X <= 0)
+				Scene.Map.RemoveGameEntity(this);
 			else if (CollisionEvaluator.Targets.Count > 0)
 				{ // Lo marca como inactivo
-						Active = false;
+						Scene.Map.RemoveGameEntity(this);
 					// Añade una explosión a la capa
-						View.AddEntity(Configuration.LayerGame,
-													 new ExplosionModel(View, Dimensions.Position.X, Dimensions.Position.Y, Velocity, Configuration.TimeEnemyExplosion));
+						Scene.Map.AddGameEntity(Scene.ViewDefault, Configuration.LayerGame,
+																		new ExplosionModel(Scene, Dimensions.Position.X, Dimensions.Position.Y, Velocity, Configuration.TimeEnemyExplosion));
 					// Activa el sonido
 						objContext.GameController.MainManager.GraphicsEngine.SoundController.Play(Configuration.ExplosionSound);
 					// Manda el mensaje para cambiar la puntuación
@@ -52,22 +52,22 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 			else
 				{ // Controla los movimientos
 						Dimensions.Translate(Velocity);
-						Dimensions.ClampToView(View.ViewPortScreen.Width, View.ViewPortScreen.Height);
+						Dimensions.ClampToView(Scene.ViewDefault.ViewPortScreen.Width, Scene.ViewDefault.ViewPortScreen.Height);
 					// Controla el disparo
 						if (objContext.MathHelper.IsElapsed(objContext.ActualTime, FireSpawnTime, ref tsPreviousFireTime) && 
 								objContext.MathHelper.Random(100) > cnstIntProbabilityFire)
 							{	// Sonido para el láser
 									objContext.GameController.MainManager.GraphicsEngine.SoundController.Play(Configuration.LaserSound);
 								// Crea el láser
-									View.AddEntity
-											(Configuration.LayerGame,
-											 new LaserModel(View, 
+									Scene.Map.AddGameEntity
+											(Scene.ViewDefault, Configuration.LayerGame,
+											 new LaserModel(Scene, 
 																			(int) Configuration.GroupGameObjects.Enemy,
 																			(int) Configuration.GroupGameObjects.Player,
 																			new GameObjectDimensions(objContext.MathHelper.Clamp(Dimensions.Position.X - Dimensions.ScaledDimensions.Width, 
-																																													 0, View.ViewPortScreen.Width),
+																																													 0, Scene.ViewDefault.ViewPortScreen.Width),
 																															 objContext.MathHelper.Clamp(Dimensions.Position.Y + Dimensions.ScaledDimensions.Height / 2, 
-																																													 0, View.ViewPortScreen.Height)),
+																																													 0, Scene.ViewDefault.ViewPortScreen.Height)),
 																			new Vector2D(-5, 0), "Laser", Configuration.TimeSpanMineLaserUpdate));
 							}
 				}

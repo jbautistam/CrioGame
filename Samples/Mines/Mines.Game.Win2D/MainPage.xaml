@@ -11,10 +11,10 @@
 		Unloaded="Page_Unloaded">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*" />
-			<RowDefinition Height="Auto" />
-		</Grid.RowDefinitions>
+			<Grid.RowDefinitions>
+				<RowDefinition Height="*" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
 			<canvas:CanvasAnimatedControl x:Name="cnvCanvas" Grid.Row="0" Grid.Column ="0"  Margin="5" />
 			<Button x:Name="cmdStart" Click="cmdStart_Click" Grid.Row="1" Grid.Column="0">Comenzar</Button>
     </Grid>
