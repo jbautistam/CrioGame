@@ -2,7 +2,7 @@
 
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.Common.Models.Structs;
-using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Collisions;
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics;
 
 namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
@@ -30,9 +30,10 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 		public PillModel(IScene objScene, PillType intType, GameObjectDimensions objDimensions, Vector2D vctVelocity) 
 							: base(objScene, objDimensions)
 		{ Pill = intType;
-			CollisionEvaluator = new CollisionTargets(this, 
-																								(int) Configuration.GroupCollisionObjects.Pill,
-																								(int) Configuration.GroupCollisionObjects.Player);
+			CollisionEvaluator = new CollisionEvaluator(this, 
+																									(int) Configuration.GroupCollisionObjects.Pill,
+																									(int) Configuration.GroupCollisionObjects.Player,
+																									CollisionEvaluator.BouncyMode.Rectangle);
 			Movement = new Movements.MovementVelocity(this, vctVelocity);
 		}
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Collisions;
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.Common.Models.Structs;
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Animations;
@@ -34,9 +34,10 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 		{ Brick = intType;
 			Pill = intPill;
 			Strength = GetStrength(intType);
-			CollisionEvaluator = new CollisionTargets(this, 
+			CollisionEvaluator = new CollisionEvaluator(this, 
 																									(int) Configuration.GroupCollisionObjects.Brick,
-																									(int) (Configuration.GroupCollisionObjects.Ball | Configuration.GroupCollisionObjects.Player));
+																									(int) (Configuration.GroupCollisionObjects.Ball | Configuration.GroupCollisionObjects.Player),
+																									CollisionEvaluator.BouncyMode.Rectangle);
 
 		}
 

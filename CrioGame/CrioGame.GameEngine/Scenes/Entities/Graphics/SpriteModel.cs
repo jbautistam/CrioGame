@@ -14,8 +14,9 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 	{
 		public SpriteModel(AbstractModelBase objParent, string strContentKey,
 											 GameObjectDimensions objDimensions, Rectangle? rctSource = null)
-									: base(objParent, strContentKey, objDimensions, rctSource ?? new Rectangle())
-		{ if (rctSource != null)
+									: base(strContentKey, objDimensions, rctSource ?? new Rectangle())
+		{ Parent = objParent;
+			if (rctSource != null)
 				{ RectangleSource = rctSource ?? new Rectangle();
 					Dimensions.Resize(rctSource?.Width ?? 0, rctSource?.Height ?? 0);
 				}
@@ -53,6 +54,11 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 			// Dibuja la imagen
 				objContext.GameController.MainManager.GraphicsEngine.SpriteBatch.Draw(this, rctView);
 		}
+
+		/// <summary>
+		///		Elemento padre
+		/// </summary>
+		protected AbstractModelBase Parent { get; }
 
 		/// <summary>
 		///		Desplazamiento X respecto al padre

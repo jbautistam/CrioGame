@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Collisions;
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.Common.Models.Structs;
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics;
@@ -21,9 +21,10 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 		{ Spawner = objSpawner;
 			Velocity = vctVelocity;
 			FramesKey = strFramesKey;
-			CollisionEvaluator = new CollisionTargets(this, 
+			CollisionEvaluator = new CollisionEvaluator(this, 
 																								(int) Configuration.GroupGameObjects.Enemy,
-																								(int) Configuration.GroupGameObjects.Player);
+																								(int) Configuration.GroupGameObjects.Player,
+																									CollisionEvaluator.BouncyMode.Circle);
 		}
 
 		/// <summary>

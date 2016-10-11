@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics;
-using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Collisions;
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.Common.Models.Structs;
 
@@ -25,11 +25,12 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 
 		public PaddleModel(IScene objScene, GameObjectDimensions objDimensions) : base(objScene, objDimensions)
 		{ StartPosition = new Vector2D(objDimensions.Position.X, objDimensions.Position.Y);
-			CollisionEvaluator = new CollisionTargets(this, 
-																								(int) Configuration.GroupCollisionObjects.Player,
-																								(int) (Configuration.GroupCollisionObjects.Ball | 
-																											 Configuration.GroupCollisionObjects.Enemy | 
-																											 Configuration.GroupCollisionObjects.Pill));
+			CollisionEvaluator = new CollisionEvaluator(this, 
+																									(int) Configuration.GroupCollisionObjects.Player,
+																									(int) (Configuration.GroupCollisionObjects.Ball | 
+																												 Configuration.GroupCollisionObjects.Enemy | 
+																												 Configuration.GroupCollisionObjects.Pill),
+																									CollisionEvaluator.BouncyMode.Rectangle);
 		}
 
 		/// <summary>
@@ -106,9 +107,9 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 		{ PaddleType intNewType = ActualPaddle;
 
 				// Recorre las colisiones buscando las píldoras contra las que se choca
-					foreach (CollisionTargets objTarget in CollisionEvaluator.Targets)
-						if (objTarget.ParentDraw is PillModel)
-							{ PillModel objPill = objTarget.ParentDraw as PillModel;
+					foreach (CollisionEvaluator objTarget in CollisionEvaluator.Targets)
+						if (objTarget.Actor is PillModel)
+							{ PillModel objPill = objTarget.Actor as PillModel;
 
 									switch (objPill.Pill)
 										{	case PillModel.PillType.Pill0:

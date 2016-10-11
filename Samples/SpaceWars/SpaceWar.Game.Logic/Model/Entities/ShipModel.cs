@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Collisions;
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.Common.Models.Structs;
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics;
@@ -25,9 +25,10 @@ namespace Bau.Libraries.SpaceWar.Game.Logic.Model.Entities
 			Velocity = new Vector2D(Math.Abs(vctVelocity.X), Math.Abs(vctVelocity.Y));
 			Offset = intOffset;
 			Color = clrColor;
-			CollisionEvaluator = new CollisionTargets(this, 
-																								(int) Configuration.GroupGameObjects.Enemy,
-																								(int) Configuration.GroupGameObjects.Player);
+			CollisionEvaluator = new CollisionEvaluator(this, 
+																									(int) Configuration.GroupGameObjects.Enemy,
+																									(int) Configuration.GroupGameObjects.Player,
+																									CollisionEvaluator.BouncyMode.Rectangle);
 		}
 
 		/// <summary>

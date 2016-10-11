@@ -195,7 +195,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 		/// <summary>
 		///		Evaluación de colisiones
 		/// </summary>
-		public Components.Physics.CollisionTargets CollisionEvaluator { get; protected set; }
+		public Components.Physics.Collisions.CollisionEvaluator CollisionEvaluator { get; protected set; }
 
 		/// <summary>
 		///		Sprites

@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics;
-using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Collisions;
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Animations;
 using Bau.Libraries.CrioGame.Common.Models.Structs;
@@ -21,9 +21,10 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 		{ Velocity = vctVelocity;
 			StartPosition = new Vector2D(objDimensions.Position.X, objDimensions.Position.Y);
 			StartVelocity = vctVelocity;
-			CollisionEvaluator = new CollisionTargets(this, 
-																								(int) Configuration.GroupCollisionObjects.Ball,
-																								(int) (Configuration.GroupCollisionObjects.Player | Configuration.GroupCollisionObjects.Brick));
+			CollisionEvaluator = new CollisionEvaluator(this, 
+																									(int) Configuration.GroupCollisionObjects.Ball,
+																									(int) (Configuration.GroupCollisionObjects.Player | Configuration.GroupCollisionObjects.Brick),
+																									CollisionEvaluator.BouncyMode.Circle);
 		}
 
 		/// <summary>
@@ -51,9 +52,9 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 			// Controla los bordes
 				if (Dimensions.Position.X + Velocity.X <= 0 || 
 						Dimensions.Position.X + Velocity.X + Dimensions.ScaledDimensions.Width >= Scene.ViewDefault.ViewPortScreen.Width)
-					TreatCollision(objContext, CollisionTargets.CollisionFrom.Left);
+					TreatCollision(objContext, CollisionEvaluator.CollisionFrom.Left);
 				else if (Dimensions.Position.Y + Velocity.Y <= 0)
-					TreatCollision(objContext, CollisionTargets.CollisionFrom.Down);
+					TreatCollision(objContext, CollisionEvaluator.CollisionFrom.Down);
 				else if (Dimensions.Position.Y + Velocity.Y + Dimensions.ScaledDimensions.Width >= Scene.ViewDefault.ViewPortScreen.Height)
 					{ // Coloca la pelota y la detiene (si no lo hiciera, en cada Update mandaría otro mensaje de eliminar el jugador)
 							Dimensions.MoveTo(StartPosition.X, StartPosition.Y);
@@ -72,7 +73,7 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 		{ bool blnTreated = false;
 
 				// Recorre las colisiones
-					foreach (CollisionTargets objCollision in CollisionEvaluator.Targets)
+					foreach (CollisionEvaluator objCollision in CollisionEvaluator.Targets)
 						if (!blnTreated)
 							{ float fltAngle = CollisionEvaluator.ComputeAngle(objCollision);
 
@@ -85,18 +86,18 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 		/// <summary>
 		///		Trata una colisión en una dirección
 		/// </summary>
-		private bool TreatCollision(IGameContext objContext, CollisionTargets.CollisionFrom intDirection)
+		private bool TreatCollision(IGameContext objContext, CollisionEvaluator.CollisionFrom intDirection)
 		{ bool blnTreated = false;
 
 				// Trata la colisión
 					switch (intDirection)
-						{ case CollisionTargets.CollisionFrom.Right:
-								case CollisionTargets.CollisionFrom.Left:
+						{ case CollisionEvaluator.CollisionFrom.Right:
+								case CollisionEvaluator.CollisionFrom.Left:
 										Velocity = new Vector2D(-Velocity.X, Velocity.Y + objContext.MathHelper.Random(3));	
 										blnTreated = true;
 									break;
-								case CollisionTargets.CollisionFrom.Down:
-								case CollisionTargets.CollisionFrom.Up:
+								case CollisionEvaluator.CollisionFrom.Down:
+								case CollisionEvaluator.CollisionFrom.Up:
 										Velocity = new Vector2D(Velocity.X + objContext.MathHelper.Random(3), -Velocity.Y);
 										blnTreated = true;
 									break;

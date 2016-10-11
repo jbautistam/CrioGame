@@ -14,8 +14,9 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 	{
 		public TextModel(AbstractModelBase objParent, string strContentKey, string strText, 
 										 GameObjectDimensions objDimensions) 
-								: base(objParent, strContentKey, strText, objDimensions)
-		{ DeltaX = (int) objDimensions.Position.X;
+								: base(strContentKey, strText, objDimensions)
+		{ Parent = objParent;
+			DeltaX = (int) objDimensions.Position.X;
 			DeltaY = (int) objDimensions.Position.Y; 
 		}
 
@@ -49,6 +50,11 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics
 			// Dibuja la imagen
 				objContext.GameController.MainManager.GraphicsEngine.SpriteBatch.DrawText(this, rctCamera);
 		}
+
+		/// <summary>
+		///		Objeto padre
+		/// </summary>
+		protected AbstractModelBase Parent { get; }
 
 		/// <summary>
 		///		Desplazamiento X

@@ -44,7 +44,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\AbstractSceneModel.cs" />
     <Compile Include="Scenes\Components\AbstractComponent.cs" />
-    <Compile Include="Scenes\Components\Physics\CollisionTargets.cs" />
+    <Compile Include="Scenes\Components\Physics\Collisions\BouncyCircle.cs" />
+    <Compile Include="Scenes\Components\Physics\Collisions\BouncyBox.cs" />
+    <Compile Include="Scenes\Components\Physics\Collisions\CollisionEvaluator.cs" />
+    <Compile Include="Scenes\Components\Physics\Collisions\AbstractBouncyCollision.cs" />
     <Compile Include="Scenes\Components\Physics\Movements\AbstractMovementBase.cs" />
     <Compile Include="Scenes\Components\Physics\Movements\AbstractMovementComponent.cs" />
     <Compile Include="Scenes\Components\Physics\Movements\MovementSimple.cs" />
@@ -75,7 +78,7 @@
     <Compile Include="Scenes\Layers\ViewModel.cs" />
     <Compile Include="Scenes\Layers\ViewModelCollection.cs" />
     <Compile Include="Scenes\NullSceneModel.cs" />
-    <Compile Include="Scenes\Physics\Collisions\CollisionsEvaluator.cs" />
+    <Compile Include="Scenes\Physics\Collisions\CollisionsEngine.cs" />
     <Compile Include="Scenes\Physics\PhysicsEngine.cs" />
   </ItemGroup>
   <ItemGroup>

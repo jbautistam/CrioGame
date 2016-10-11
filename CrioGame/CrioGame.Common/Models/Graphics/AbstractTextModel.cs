@@ -9,9 +9,8 @@ namespace Bau.Libraries.CrioGame.Common.Models.Graphics
 	/// </summary>
 	public abstract class AbstractTextModel : AbstractDrawableModelBase
 	{
-		public AbstractTextModel(AbstractModelBase objParent, string strContentKey, string strText, 
-														 Structs.GameObjectDimensions objDimensions) 
-								: base(objParent, strContentKey, objDimensions)
+		public AbstractTextModel(string strContentKey, string strText, Structs.GameObjectDimensions objDimensions) 
+								: base(strContentKey, objDimensions)
 		{ Text = strText;
 		}
 

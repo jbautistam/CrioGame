@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Bau.Libraries.CrioGame.Common.Models.Structs;
-using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Collisions;
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics;
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Animations;
@@ -21,7 +21,8 @@ namespace Bau.Libraries.ArkanoidGame.Logic.Model.Entities
 							: base(objScene, objDimensions)
 		{ Movement = new Movements.MovementVelocity(this, vctVelocity);
 			TextureKey = strTextureKey;
-			CollisionEvaluator = new CollisionTargets(this, intFlagsSource, intFlagsTarget);
+			CollisionEvaluator = new CollisionEvaluator(this, intFlagsSource, intFlagsTarget,
+																									CollisionEvaluator.BouncyMode.Rectangle);
 		}
 
 		/// <summary>

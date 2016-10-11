@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics;
-using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Collisions;
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.Common.Models.Structs;
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Animations;
@@ -16,8 +16,9 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 			private TimeSpan tsFireSpawnTime, tsPreviousFireTime;
 
 		public PlayerModel(IScene objScene, GameObjectDimensions objDimensions) : base(objScene, objDimensions)
-		{ CollisionEvaluator = new CollisionTargets(this, (int) Configuration.GroupGameObjects.Player, 
-																								(int) Configuration.GroupGameObjects.Enemy);
+		{ CollisionEvaluator = new CollisionEvaluator(this, (int) Configuration.GroupGameObjects.Player, 
+																									(int) Configuration.GroupGameObjects.Enemy,
+																									CollisionEvaluator.BouncyMode.Circle);
 		}
 
 		/// <summary>

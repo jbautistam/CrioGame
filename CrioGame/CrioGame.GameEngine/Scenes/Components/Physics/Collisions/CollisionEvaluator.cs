@@ -3,13 +3,21 @@
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.Common.Models.Structs;
 
-namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics
+namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Collisions
 {
 	/// <summary>
 	///		Componente para obtener los objetos con los que se ha detectado una colisión
 	/// </summary>
-	public class CollisionTargets : AbstractComponent
+	public class CollisionEvaluator : AbstractComponent
 	{
+		/// <summary>
+		///		Modo en que se evalúan las dimensiones del objeto para las colisiones
+		/// </summary>
+		public enum BouncyMode
+			{ Rectangle,
+				Circle
+			}
+
 		/// <summary>
 		///		Dirección donde se ha localizado la colisión
 		/// </summary>
@@ -20,40 +28,40 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics
 				Down
 			}
 
-		public CollisionTargets(Entities.Graphics.AbstractActorModel objParentDraw, int intFlagsSource, int intFlagsTarget)
-		{ ParentDraw = objParentDraw;
+		public CollisionEvaluator(Entities.Graphics.AbstractActorModel objActor, int intFlagsSource, int intFlagsTarget,
+															BouncyMode intMode)
+		{ Actor = objActor;
 			FlagsSource = intFlagsSource;
 			FlagsTarget = intFlagsTarget;
+			switch (intMode)
+				{	case BouncyMode.Circle:
+							BouncyBox = new BouncyCircle(objActor);
+						break;
+					default:
+							BouncyBox = new BouncyBox(objActor);
+						break;
+				}
 		}
 
 		/// <summary>
 		///		Inicializa el comprobador de colisiones
 		/// </summary>
 		public override void Update(IGameContext objContext, IView objView)
-		{	BouncyBox = new Rectangle(ParentDraw.Dimensions.Position.X, ParentDraw.Dimensions.Position.Y, 
-																ParentDraw.Dimensions.ScaledDimensions.Width, 
-																ParentDraw.Dimensions.ScaledDimensions.Height);
-			Targets.Clear();
+		{	Targets.Clear();
 		}
 
 		/// <summary>
 		///		Evalúa la colisión
 		/// </summary>
-		public virtual bool Evaluate(CollisionTargets objTarget)
-		{ return (FlagsTarget & objTarget.FlagsSource) > 0 &&
-						 BouncyBox.Right >= objTarget.BouncyBox.Left && 
-						 BouncyBox.Left <= objTarget.BouncyBox.Right && 
-						 BouncyBox.Top <= objTarget.BouncyBox.Bottom && 
-						 BouncyBox.Bottom >= objTarget.BouncyBox.Top;
+		public virtual bool Evaluate(CollisionEvaluator objTarget)
+		{ return (FlagsTarget & objTarget.FlagsSource) > 0 && BouncyBox.ExistCollision(objTarget.BouncyBox);
 		}
 
 		/// <summary>
 		///		Calcula el ángulo de choque con el destino
 		/// </summary>
-		public float ComputeAngle(CollisionTargets objTarget)
-		{ Vector2D vctTarget = new Vector2D(objTarget.BouncyBox.Left, objTarget.BouncyBox.Top);
-
-				return new Vector2D(ParentDraw.Dimensions.Position.X, ParentDraw.Dimensions.Position.Y).ComputeAngle(vctTarget);
+		public float ComputeAngle(CollisionEvaluator objTarget)
+		{ return new Vector2D(Actor.Dimensions.Position.X, Actor.Dimensions.Position.Y).ComputeAngle(objTarget.BouncyBox.GetPosition());
 		}
 
 		/// <summary>
@@ -77,9 +85,9 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics
 		}
 
 		/// <summary>
-		///		Objeto padre
+		///		Actor
 		/// </summary>
-		public Entities.Graphics.AbstractActorModel ParentDraw { get; }
+		public Entities.Graphics.AbstractActorModel Actor { get; }
 
 		/// <summary>
 		///		Grupo al que pertenece
@@ -100,13 +108,13 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics
 		public int FlagsTarget { get; }		
 
 		/// <summary>
-		///		Dimensiones
+		///		Figura límite con la que calcular las colisiones
 		/// </summary>
-		public Rectangle BouncyBox { get; protected set; }
+		public AbstractBouncyCollision BouncyBox { get; protected set; }
 
 		/// <summary>
 		///		Objetos con los que se ha detectado una colisión
 		/// </summary>
-		public System.Collections.Generic.List<CollisionTargets> Targets { get; } = new System.Collections.Generic.List<CollisionTargets>();
+		public System.Collections.Generic.List<CollisionEvaluator> Targets { get; } = new System.Collections.Generic.List<CollisionEvaluator>();
 	}
 }

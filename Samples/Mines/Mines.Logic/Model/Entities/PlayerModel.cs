@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics;
-using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Collisions;
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.Common.Models.Structs;
 
@@ -16,9 +16,10 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 			private TimeSpan tsFireSpawnTime, tsPreviousFireTime;
 
 		public PlayerModel(IScene objScene, GameObjectDimensions objDimensions) : base(objScene, objDimensions)
-		{ CollisionEvaluator = new CollisionTargets(this, 
+		{ CollisionEvaluator = new CollisionEvaluator(this, 
 																								(int) Configuration.GroupGameObjects.Player, 
-																								(int) Configuration.GroupGameObjects.Enemy);
+																								(int) Configuration.GroupGameObjects.Enemy,
+																									CollisionEvaluator.BouncyMode.Rectangle);
 		}
 
 		/// <summary>

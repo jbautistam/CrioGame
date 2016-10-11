@@ -73,6 +73,7 @@
     <Compile Include="Models\Resources\ResourceModel.cs" />
     <Compile Include="Models\Resources\ResourceSheetModel.cs" />
     <Compile Include="Models\Structs\CameraView.cs" />
+    <Compile Include="Models\Structs\Circle.cs" />
     <Compile Include="Models\Structs\ColorEngine.cs" />
     <Compile Include="Models\Structs\GameObjectDimensions.cs" />
     <Compile Include="Models\Structs\Polar2D.cs" />

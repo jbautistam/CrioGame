@@ -10,7 +10,7 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.UserInterface
 	/// </summary>
 	public abstract class AbstractControl : AbstractDrawableModelBase
 	{
-		public AbstractControl(GameObjectDimensions objDimensions) : base(null, null, objDimensions)
+		public AbstractControl(GameObjectDimensions objDimensions) : base(null, objDimensions)
 		{ Dimensions = objDimensions;
 		}
 

@@ -1,7 +1,7 @@
 ﻿using System;
 
 using Bau.Libraries.CrioGame.Common.Models.Structs;
-using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Collisions;
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics;
 
@@ -18,7 +18,8 @@ namespace Bau.Libraries.Asteroids.Game.Logic.Model.Entities
 											GameObjectDimensions objDimensions, Polar2D vctVelocity) 
 							: base(objScene, objDimensions)
 		{ Velocity = vctVelocity;
-			CollisionEvaluator = new CollisionTargets(this, intFlagsSource, intFlagsTarget);
+			CollisionEvaluator = new CollisionEvaluator(this, intFlagsSource, intFlagsTarget,
+																									CollisionEvaluator.BouncyMode.Circle);
 		}
 
 		/// <summary>

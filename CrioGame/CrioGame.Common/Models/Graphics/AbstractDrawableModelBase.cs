@@ -10,9 +10,8 @@ namespace Bau.Libraries.CrioGame.Common.Models.Graphics
 	/// </summary>
 	public abstract class AbstractDrawableModelBase : AbstractModelBase
 	{
-		public AbstractDrawableModelBase(AbstractModelBase objParent, string strContentKey, GameObjectDimensions objDimensions)
-		{ Parent = objParent;
-			ContentKey = strContentKey;
+		public AbstractDrawableModelBase(string strContentKey, GameObjectDimensions objDimensions)
+		{ ContentKey = strContentKey;
 			Dimensions = objDimensions;
 		}
 
@@ -20,11 +19,6 @@ namespace Bau.Libraries.CrioGame.Common.Models.Graphics
 		///		Dibuja el elemento
 		/// </summary>
 		public abstract void Draw(IGameContext objContext, Rectangle rctCamera);
-
-		/// <summary>
-		///		Elemento padre
-		/// </summary>
-		protected AbstractModelBase Parent { get; }
 
 		/// <summary>
 		///		Clave del contenido

@@ -1,6 +1,6 @@
 ﻿using System;
 
-using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics;
+using Bau.Libraries.CrioGame.GameEngine.Scenes.Components.Physics.Collisions;
 using Bau.Libraries.CrioGame.Common.Interfaces.GameEngine;
 using Bau.Libraries.CrioGame.Common.Models.Structs;
 
@@ -9,7 +9,7 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 	/// <summary>
 	///		Modelo con los datos de una mina
 	/// </summary>
-	public class MineModel : Bau.Libraries.CrioGame.GameEngine.Scenes.Entities.Graphics.AbstractActorModel
+	public class MineModel : CrioGame.GameEngine.Scenes.Entities.Graphics.AbstractActorModel
 	{ // Constantes privadas
 			private const int cnstIntProbabilityFire = 90;
 		// Variables privadas
@@ -19,9 +19,10 @@ namespace Bau.Libraries.Mines.Logic.Model.Entities
 							: base(objScene, objDimensions)
 		{ FireSpawnTime = tsFireSpawnTime;
 			Velocity = vctVelocity;
-			CollisionEvaluator = new CollisionTargets(this, 
+			CollisionEvaluator = new CollisionEvaluator(this, 
 																								(int) Configuration.GroupGameObjects.Enemy,
-																								(int) Configuration.GroupGameObjects.Player);
+																								(int) Configuration.GroupGameObjects.Player,
+																									CollisionEvaluator.BouncyMode.Rectangle);
 		}
 
 		/// <summary>

@@ -20,6 +20,6 @@ namespace Bau.Libraries.CrioGame.GameEngine.Scenes.Physics
 		/// <summary>
 		///		Motor para el cálculo de colisiones
 		/// </summary>
-		internal Collisions.CollisionsEvaluator CollisionsEngine { get; } = new Collisions.CollisionsEvaluator();
+		internal Collisions.CollisionsEngine CollisionsEngine { get; } = new Collisions.CollisionsEngine();
 	}
 }

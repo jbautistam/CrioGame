@@ -54,6 +54,20 @@ namespace Bau.Libraries.CrioGame.Common.Models.Structs
 		}
 
 		/// <summary>
+		///		Calcula la distancia entre dos vectores
+		/// </summary>
+		public float ComputeDistance(Vector2D vctTarget)
+		{	return (float) Math.Sqrt(Math.Pow(X - vctTarget.X, 2.0) + Math.Pow(Y - vctTarget.Y, 2.0));
+		}
+
+		/// <summary>
+		///		Calcula la distancia entre dos vectores
+		/// </summary>
+		public float ComputeSquaredDistance(Vector2D vctTarget)
+		{	return (float) (Math.Pow(vctTarget.X - X, 2) + Math.Pow(vctTarget.Y - Y, 2));
+		}
+
+		/// <summary>
 		///		Calcula el ángulo entre dos vectores
 		/// </summary>
 		public float ComputeAngle(Vector2D vctTarget)
